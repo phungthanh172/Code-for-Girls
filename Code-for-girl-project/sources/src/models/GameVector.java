@@ -15,4 +15,5 @@ public class GameVector {
         this.dx = dx;
         this.dy = dy;
     }
+
 }

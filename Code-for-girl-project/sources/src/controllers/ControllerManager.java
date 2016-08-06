@@ -32,7 +32,13 @@ public class ControllerManager implements BaseController {
             }
         }
     }
+    public int size() {
 
+        return singleControllerVector.size();
+    }
+    public int getLastXPoint(){
+        return singleControllerVector.get(size()).getGameObject().getX();
+    }
     @Override
     public void run() {
         synchronized (this.singleControllerVector) {

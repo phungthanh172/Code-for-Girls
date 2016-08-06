@@ -78,5 +78,7 @@ public abstract class GameObject {
             this.isAlive = false;
     }
 
-
+    public void setY(int y) {
+        this.y = y;
+    }
 }

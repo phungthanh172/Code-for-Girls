@@ -1,7 +1,5 @@
 import com.google.gson.annotations.Until;
-import controllers.CollsionPool;
-import controllers.PlayerController;
-import controllers.ScrollingBackground;
+import controllers.*;
 
 import utils.Utils;
 import views.ImageDrawer;
@@ -16,11 +14,11 @@ import java.awt.image.BufferedImage;
 /**
  * Created by qhuydtvt on 7/24/2016.
  */
-public class GameWindow extends Frame implements Runnable{
+public class GameWindow extends JFrame {
     Image background;
 
-    BufferedImage bufferedImage;
-    Graphics bufferImageGraphic;
+//    BufferedImage bufferedImage;
+//    Graphics bufferImageGraphic;
     Thread thread;
     ScrollingBackground scrollingBackground;
 //    PlaneController planeController1;
@@ -29,10 +27,10 @@ public class GameWindow extends Frame implements Runnable{
         System.out.println("Game window constructor");
         this.setSize(720, 480);
         this.setLocation(0, 0);
-        //scrollingBackground = new ScrollingBackground();
-        //getContentPane().add(scrollingBackground);
+        scrollingBackground = new ScrollingBackground();
+        getContentPane().add(scrollingBackground);
         this.setVisible(true);
-        background = Utils.loadImage("Background");
+        //background = Utils.loadImage("Background");
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -91,35 +89,36 @@ public class GameWindow extends Frame implements Runnable{
 //
 //        });
 //        CollsionPool.instance.add(PlayerController.instance);
-        this.bufferedImage = new BufferedImage(720, 480, BufferedImage.TYPE_INT_ARGB);
-        this.bufferImageGraphic = bufferedImage.getGraphics();
-        thread = new Thread(this);
-        thread.start();
+//        this.bufferedImage = new BufferedImage(720, 480, BufferedImage.TYPE_INT_ARGB);
+//        this.bufferImageGraphic = bufferedImage.getGraphics();
+        //thread = new Thread(this);
+        //thread.start();
     }
 
-    @Override
-    public void update(Graphics g) {
-        bufferImageGraphic.drawImage(background, 0, 0, null);
-        //scrollingBackground.update(bufferImageGraphic);
-        PlayerController.instance.draw(bufferImageGraphic);
-        g.drawImage(bufferedImage, 0, 0, null);
-
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                //scrollingBackground.run();
-                PlayerController.instance.run();
-                //CollsionPool.instance.run();
-
-//                scrollingBackground.run();
-                Thread.sleep(17);
-                repaint();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    @Override
+//    public void update(Graphics g) {
+//       // bufferImageGraphic.drawImage(background, 0, 0, null);
+////        PlayerController.instance.draw(bufferImageGraphic);
+////        BoxManager.instance.draw(bufferImageGraphic);
+////        FloorManager.instance.draw(bufferImageGraphic);
+////        g.drawImage(bufferedImage, 0, 0, null);
+//
+//    }
+//
+//    @Override
+//    public void run() {
+//
+////        while (true) {
+////            try {
+////                scrollingBackground.run();
+////                PlayerController.instance.run();
+////                BoxManager.instance.run();
+////                FloorManager.instance.run();
+////                Thread.sleep(17);
+////                repaint();
+////            } catch (InterruptedException e) {
+////                e.printStackTrace();
+////            }
+////        }
+//    }
 }
