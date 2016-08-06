@@ -1,7 +1,5 @@
 package controllers;
-import models.Bullet;
 import models.GameObject;
-import models.Plane;
 import models.Player;
 import views.GameDrawer;
 import views.ImageDrawer;
