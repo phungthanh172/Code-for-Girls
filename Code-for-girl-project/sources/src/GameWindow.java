@@ -1,8 +1,12 @@
+import com.google.gson.annotations.Until;
 import controllers.CollsionPool;
 import controllers.PlayerController;
-import models.GameObjectWithHP;
-import utils.Utils;
+import controllers.ScrollingBackground;
 
+import utils.Utils;
+import views.ImageDrawer;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -18,15 +22,17 @@ public class GameWindow extends Frame implements Runnable{
     BufferedImage bufferedImage;
     Graphics bufferImageGraphic;
     Thread thread;
-
+    ScrollingBackground scrollingBackground;
 //    PlaneController planeController1;
 
     public GameWindow() {
         System.out.println("Game window constructor");
-        this.setVisible(true);
-        this.setSize(600, 800);
+        this.setSize(720, 480);
         this.setLocation(0, 0);
-
+        //scrollingBackground = new ScrollingBackground();
+        //getContentPane().add(scrollingBackground);
+        this.setVisible(true);
+        background = Utils.loadImage("Background");
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -65,7 +71,7 @@ public class GameWindow extends Frame implements Runnable{
             }
         });
 
-        background =  Utils.loadImage("resources/background.png");
+        //background =  Utils.loadImage("background");
 
 
         this.addKeyListener(PlayerController.instance);
@@ -84,8 +90,8 @@ public class GameWindow extends Frame implements Runnable{
 //            }
 //
 //        });
-        CollsionPool.instance.add(PlayerController.instance);
-        this.bufferedImage = new BufferedImage(600,800,BufferedImage.TYPE_INT_ARGB);
+//        CollsionPool.instance.add(PlayerController.instance);
+        this.bufferedImage = new BufferedImage(720, 480, BufferedImage.TYPE_INT_ARGB);
         this.bufferImageGraphic = bufferedImage.getGraphics();
         thread = new Thread(this);
         thread.start();
@@ -94,7 +100,7 @@ public class GameWindow extends Frame implements Runnable{
     @Override
     public void update(Graphics g) {
         bufferImageGraphic.drawImage(background, 0, 0, null);
-
+        //scrollingBackground.update(bufferImageGraphic);
         PlayerController.instance.draw(bufferImageGraphic);
         g.drawImage(bufferedImage, 0, 0, null);
 
@@ -104,9 +110,11 @@ public class GameWindow extends Frame implements Runnable{
     public void run() {
         while (true) {
             try {
+                //scrollingBackground.run();
                 PlayerController.instance.run();
-                CollsionPool.instance.run();
+                //CollsionPool.instance.run();
 
+//                scrollingBackground.run();
                 Thread.sleep(17);
                 repaint();
             } catch (InterruptedException e) {

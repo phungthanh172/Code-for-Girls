@@ -17,28 +17,28 @@ public class ScrollingBackground extends Canvas implements Runnable {
     public ScrollingBackground() {
         backOne = new Background();
         backTwo = new Background(backOne.getImageWidth(), 0);
-
+        back = new BufferedImage(720,480, BufferedImage.TYPE_INT_ARGB);
         new Thread(this).start();
         setVisible(true);
     }
 
     @Override
     public void run() {
-        try {
-            while (true) {
-                Thread.currentThread().sleep(100);
+//        try {
+//            while (true) {
+//                Thread.currentThread().sleep(100);
                 repaint();
-            }
+//            }
         }
-        catch (Exception e) {}
-    }
+//        catch (Exception e) {}
+//    }
 
     @Override
     public void update(Graphics window) {
-        paint(window);
+        draw(window);
     }
 
-    public void paint(Graphics window) {
+    public void draw(Graphics window) {
         Graphics2D twoD = (Graphics2D)window;
 
         if (back == null)
@@ -56,4 +56,7 @@ public class ScrollingBackground extends Canvas implements Runnable {
 
     }
 
+    public BufferedImage getBack() {
+        return back;
+    }
 }

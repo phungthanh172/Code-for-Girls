@@ -21,7 +21,7 @@ public class Background {
 
         // Try to open the image file background.png
         try {
-            image = ImageIO.read(new File("images"));
+            image = ImageIO.read(new File("resources/Background.png"));
         }
         catch (Exception e) { System.out.println(e); }
 
