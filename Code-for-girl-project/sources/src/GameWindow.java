@@ -1,12 +1,7 @@
-import com.google.gson.annotations.Until;
-import controllers.CollsionPool;
 import controllers.PlayerController;
 import controllers.ScrollingBackground;
-
 import utils.Utils;
-import views.ImageDrawer;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
