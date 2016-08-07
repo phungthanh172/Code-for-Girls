@@ -1,7 +1,12 @@
 import controllers.PlayerController;
 import controllers.ScrollingBackground;
+<<<<<<< HEAD:sources/src/GameWindow.java
 
 import javax.swing.*;
+=======
+import utils.Utils;
+
+>>>>>>> origin/master:Code-for-girl-project/sources/src/GameWindow.java
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
