@@ -6,10 +6,10 @@ import views.ImageDrawer;
 /**
  * Created by Ha San~ on 8/6/2016.
  */
-public class BoxManager extends ControllerManager {
-    public final static BoxManager instance = new BoxManager();
+public class BoxControllerManager extends ControllerManager {
+    public final static BoxControllerManager instance = new BoxControllerManager();
     private int count = 0;
-    private BoxManager() {
+    private BoxControllerManager() {
         super();
 
 
@@ -21,7 +21,7 @@ public class BoxManager extends ControllerManager {
         super.run();
         if(count % 500 == 0) {
             BoxController boxController = new BoxController(
-                    new Box(720, 320), new ImageDrawer("brickblock")
+                    new Box(720, 300), new ImageDrawer("brickblock")
             );
             this.add(boxController);
         }

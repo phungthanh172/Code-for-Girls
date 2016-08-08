@@ -1,4 +1,4 @@
-package controllers;
+package models;
 
 import utils.*;
 
@@ -19,7 +19,7 @@ public class Background {
     public Background(int x, int y) {
         this.x = x;
         this.y = y;
-        image =  Utils.loadImage("Background");
+        image =  Utils.loadImage("Background2");
 
     }
 

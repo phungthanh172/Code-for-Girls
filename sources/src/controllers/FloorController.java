@@ -16,9 +16,6 @@ public class FloorController extends SingleController implements Colliable{
         CollsionPool.instance.add(this);
     }
 
-    public final static FloorController instance = new FloorController(
-            new Floor(0, 365), new ImageDrawer("land")
-    );
 
     @Override
     public void run() {

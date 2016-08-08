@@ -15,16 +15,25 @@ import java.awt.event.KeyListener;
 public class PlayerController extends SingleController
         implements KeyListener, Colliable {
 
+
+    //private ControllerManager bulletManager;
+    private GameInput gameInput;
+
     public static final int SPEED = 10;
     public static final int ATK_SPEED = 3;
+    private static final float GRAFITY = 0.05f;
+    private static final int JUMP_SPEED = 1;
+    //COUNTER
     private int count;
+    private float fallingSpeed;
+
+
+    //STATUS : Now 3 status Jumping/Falling/Standing and future add Attacking 1, Attacking 2, Dead, Falling with VaCham and Standing meaning Running
     private boolean jumping;
     private boolean falling;
     private boolean standing;
+    //
 
-
-    private ControllerManager bulletManager;
-    private GameInput gameInput;
 
     public PlayerController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
@@ -33,9 +42,10 @@ public class PlayerController extends SingleController
 
     private PlayerController(Player player, GameDrawer gameDrawer) {
         super(player, gameDrawer);
-        this.bulletManager = new ControllerManager();
+    //    this.bulletManager = new ControllerManager();
         this.gameInput = new GameInput();
         CollsionPool.instance.add(this);
+        standing = true;
     }
 
     @Override
@@ -59,7 +69,6 @@ public class PlayerController extends SingleController
                 this.gameInput.keyRight = true;
                 break;
             case KeyEvent.VK_SPACE:
-                //jumping = true;
                 this.gameInput.keySpace = true;
                 break;
         }
@@ -82,7 +91,6 @@ public class PlayerController extends SingleController
                 break;
             case KeyEvent.VK_SPACE:
                 this.gameInput.keySpace = false;
-                //jumping = false;
                 break;
         }
     }
@@ -90,84 +98,81 @@ public class PlayerController extends SingleController
     @Override
     public void draw(Graphics g) {
         super.draw(g);
+        // TODO : DRAW BULLET IF ATTACK
+        // Enter code here
 
+        // End
     }
 
     @Override
     public void run() {
 
         count++;
-//        this.gameVector.dx = 0;
-//        this.gameVector.dy = 0;
-//
-//        if(gameInput.keyDown && !gameInput.keyUp) {
-//            this.gameVector.dy = SPEED;
-//        } else if(!gameInput.keyDown && gameInput.keyUp) {
-//            this.gameVector.dy = -SPEED;
-//        }
-//
-//        if(gameInput.keyLeft && !gameInput.keyRight) {
-//            this.gameVector.dx = -SPEED;
-//        } else if(!gameInput.keyLeft && gameInput.keyRight) {
-//            this.gameVector.dx = SPEED;
-//        }
-//        if(gameInput.keyUp) {
-//            this.gameVector.dy = SPEED;
-//        if (this.getGameObject().isAlive()) {
-//            this.gameVector.dx = 0;
-//        }
-        if(gameObject.isAlive()) {
+
+        if (gameObject.isAlive()) {
             this.gameVector.dx = 0;
             if (gameInput.keyRight) {
-                this.gameVector.dx = 1;
+                this.gameVector.dx += 1;
+            }
+            if (gameInput.keyLeft) {
+                this.gameVector.dx -= 1;
             }
         }
         if (gameInput.keySpace) {
-
-            standing = false;
-            jumping = true;
-            falling = false;
-            System.out.println("JUMP");
+            if (standing) {
+                standing = false;
+                jumping = true;
+                falling = false;
+                fallingSpeed = 1;
+                System.out.println("JUMP");
+            }
         }
-        //
-    //    System.out.println("TOA DO Y CUA PLAYER : " + this.getGameObject().getY());
+        // DEBUG
+        //    System.out.println("TOA DO Y CUA PLAYER : " + this.getGameObject().getY());
 
         // Jump
-        if (jumping == true && !falling && !standing) {
-            this.gameVector.dy = -1;
+        if (jumping && !falling && !standing) {
+            this.gameVector.dy = -2;
+
         }
-        if (falling == true && !jumping && !standing) {
-            this.gameVector.dy = 2;
+        // Falling
+        if (falling && !jumping && !standing) {
+            fallingSpeed += GRAFITY;
+            this.gameVector.dy = (int)(fallingSpeed);
+            System.out.println("AAA" + fallingSpeed);
         }
+        //Standing
         if (standing && !falling && !jumping) {
             this.gameVector.dy = 0;
         }
         count++;
-        if(this.getGameObject().getY() < 330) {
+//        // Start falling
+//        if (this.getGameObject().getY() < 330) {
+//            standing = false;
+//            jumping = false;
+//            falling = true;
+//        }
+        //Start falling
+        if (this.getGameObject().getY() > 350 || this.getGameObject().getY() < 300) {
             standing = false;
             jumping = false;
             falling = true;
-        }
 
-        if(this.getGameObject().getY() > 380) {
-            standing = false;
-            jumping = false;
-            falling = true;
+            System.out.println("AAAAAAAAAAAAAAAAAAA");
         }
-        if(this.getGameObject().getY() >= 380) {
-            this.getGameObject().setY(380);
+        // Start standing
+        if (this.getGameObject().getY() >= 350) {
+            this.getGameObject().setY(350);
             standing = true;
             jumping = false;
             falling = false;
+            fallingSpeed = 1;
         }
 
         // Fall
 
 
         // Stand
-
-
-
 
 
 //            if(count > ATK_SPEED) {
@@ -252,12 +257,16 @@ public class PlayerController extends SingleController
     }
 
     public final static PlayerController instance = new PlayerController(
-            new Player(250, 380),
+            new Player(150, 350),
             new ImageDrawer("player")
     );
 
     @Override
     public void onCollide(Colliable colliable) {
 
+        if(colliable instanceof BoxController){
+            colliable.getGameObject().destroy();
+            System.out.println("DEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        }
     }
 }

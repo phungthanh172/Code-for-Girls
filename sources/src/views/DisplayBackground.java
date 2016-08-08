@@ -1,4 +1,10 @@
-package controllers;
+package views;
+
+import controllers.BoxControllerManager;
+import controllers.CollsionPool;
+import controllers.FloorControllerManager;
+import controllers.PlayerController;
+import models.Background;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -6,13 +12,13 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Hau on 06/08/2016.
  */
-public class ScrollingBackground extends Canvas implements Runnable {
+public class DisplayBackground extends Canvas implements Runnable {
     private Background backOne;
     private Background backTwo;
     private BufferedImage back;
 
 
-    public ScrollingBackground() {
+    public DisplayBackground() {
         backOne = new Background();
         backTwo = new Background(backOne.getImageWidth(), 0);
 
@@ -34,8 +40,8 @@ public class ScrollingBackground extends Canvas implements Runnable {
 //        System.out.println("a");
 
         PlayerController.instance.draw(buffer);
-        BoxManager.instance.draw(buffer);
-        FloorManager.instance.draw(buffer);
+        BoxControllerManager.instance.draw(buffer);
+        FloorControllerManager.instance.draw(buffer);
 
         g2d.drawImage(back, null, 0, 0);
     }
@@ -47,8 +53,9 @@ public class ScrollingBackground extends Canvas implements Runnable {
             try {
 
                 PlayerController.instance.run();
-                BoxManager.instance.run();
-                FloorManager.instance.run();
+                BoxControllerManager.instance.run();
+                FloorControllerManager.instance.run();
+                CollsionPool.instance.run();
                 Thread.sleep(17);
                 repaint();
             } catch (InterruptedException e) {

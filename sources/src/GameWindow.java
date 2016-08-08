@@ -1,37 +1,27 @@
 import controllers.PlayerController;
-import controllers.ScrollingBackground;
-<<<<<<< HEAD:sources/src/GameWindow.java
+import views.DisplayBackground;
 
 import javax.swing.*;
-=======
-import utils.Utils;
 
->>>>>>> origin/master:Code-for-girl-project/sources/src/GameWindow.java
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 
-/**
- * Created by qhuydtvt on 7/24/2016.
- */
 public class GameWindow extends JFrame {
     Image background;
-
-//    BufferedImage bufferedImage;
-//    Graphics bufferImageGraphic;
     Thread thread;
-    ScrollingBackground scrollingBackground;
-//    PlaneController planeController1;
+    DisplayBackground scrollingBackground;
+
 
     public GameWindow() {
         System.out.println("Game window constructor");
         this.setSize(720, 480);
         this.setLocation(0, 0);
-        scrollingBackground = new ScrollingBackground();
+        scrollingBackground = new DisplayBackground();
         getContentPane().add(scrollingBackground);
         this.setVisible(true);
-        //background = Utils.loadImage("Background");
+        // Add window listener
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -69,10 +59,7 @@ public class GameWindow extends JFrame {
 
             }
         });
-
-        //background =  Utils.loadImage("background");
-
-
+        // add key to controller player
         this.addKeyListener(PlayerController.instance);
 
 //        this.addMouseMotionListener(new MouseMotionListener() {
@@ -89,37 +76,8 @@ public class GameWindow extends JFrame {
 //            }
 //
 //        });
-//        CollsionPool.instance.add(PlayerController.instance);
-//        this.bufferedImage = new BufferedImage(720, 480, BufferedImage.TYPE_INT_ARGB);
-//        this.bufferImageGraphic = bufferedImage.getGraphics();
-        //thread = new Thread(this);
-        //thread.start();
+
     }
 
-//    @Override
-//    public void update(Graphics g) {
-//       // bufferImageGraphic.drawImage(background, 0, 0, null);
-////        PlayerController.instance.draw(bufferImageGraphic);
-////        BoxManager.instance.draw(bufferImageGraphic);
-////        FloorManager.instance.draw(bufferImageGraphic);
-////        g.drawImage(bufferedImage, 0, 0, null);
-//
-//    }
-//
-//    @Override
-//    public void run() {
-//
-////        while (true) {
-////            try {
-////                scrollingBackground.run();
-////                PlayerController.instance.run();
-////                BoxManager.instance.run();
-////                FloorManager.instance.run();
-////                Thread.sleep(17);
-////                repaint();
-////            } catch (InterruptedException e) {
-////                e.printStackTrace();
-////            }
-////        }
-//    }
+
 }

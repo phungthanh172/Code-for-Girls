@@ -4,8 +4,8 @@ package models;
  * Created by KhacThanh on 8/6/2016.
  */
 public class Box extends GameObject {
-    private static final int DEFAULT_WIDTH = 100;
-    private static final int DEFAULT_HEIGHT = 20;
+    private static final int DEFAULT_WIDTH = 30;
+    private static final int DEFAULT_HEIGHT = 30;
 
 
     public Box(int x, int y, int width, int height) {
