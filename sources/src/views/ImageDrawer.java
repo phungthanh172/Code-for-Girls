@@ -22,7 +22,7 @@ public class ImageDrawer implements GameDrawer {
 
     @Override
     public void draw(Graphics g, GameObject gameObject) {
-        g.drawImage(img, gameObject.getX(), gameObject.getY(),
+        g.drawImage(img, (int)gameObject.getX(), (int)gameObject.getY(),
                 gameObject.getWidth(), gameObject.getHeight(), null);
     }
 }

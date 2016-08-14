@@ -4,8 +4,8 @@ package models;
  * Created by KhacThanh on 8/6/2016.
  */
 public class Player extends GameObject{
-    private static final int DEFAULT_WIDTH = 75;
-    private static final int DEFAULT_HEIGHT = 65;
+    private static final int DEFAULT_WIDTH = 70;
+    private static final int DEFAULT_HEIGHT = 75;
     public Player(int x, int y, int width, int height) {
         super(x, y, width, height);
     }

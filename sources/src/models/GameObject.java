@@ -7,18 +7,18 @@ import java.awt.*;
  */
 public abstract class GameObject {
 
-    protected int x;
-    protected int y;
+    protected float x;
+    protected float y;
     protected int width;
     protected int height;
 
     protected boolean isAlive;
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -30,19 +30,19 @@ public abstract class GameObject {
         return height;
     }
 
-    public int getMiddleX() {
+    public float getMiddleX() {
         return this.x + this.width / 2;
     }
 
-    public int getMiddleY() {
+    public float getMiddleY() {
         return this.y + this.height / 2;
     }
 
-    public int getBottom() {
+    public float getBottom() {
         return  this.y + this.height;
     }
 
-    public GameObject(int x, int y, int width, int height) {
+    public GameObject(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -54,7 +54,7 @@ public abstract class GameObject {
         return isAlive;
     }
 
-    public void moveTo(int x, int y) {
+    public void moveTo(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -71,14 +71,14 @@ public abstract class GameObject {
     }
 
     private Rectangle getRect() {
-        return new Rectangle(x, y, width, height);
+        return new Rectangle((int)x, (int)y, width, height);
     }
 
     public void destroy() {
             this.isAlive = false;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 }
