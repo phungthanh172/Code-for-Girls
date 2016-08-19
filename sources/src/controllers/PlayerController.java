@@ -5,7 +5,7 @@ import models.GameObject;
 import models.Player;
 import views.GameDrawer;
 import views.ImageDrawer;
-
+import controllers.PlayerStatus;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -23,7 +23,7 @@ public class PlayerController extends SingleController
 
     public static final int SPEED = 10;
     public static final int ATK_SPEED = 3;
-    private static final float GRAFITY = 0.1f;
+    private static final float GRAFITY = 0.15f;
     private static final int JUMP_SPEED = 1;
 
     private int Floor = 400;
@@ -51,7 +51,7 @@ public class PlayerController extends SingleController
         this.gameInput = new GameInput();
         CollsionPool.instance.add(this);
         //standing = true;
-        playerStatus = PlayerStatus.Standing;
+        playerStatus = PlayerStatus.STANDING;
         Floor = 400;
     }
 
@@ -110,8 +110,8 @@ public class PlayerController extends SingleController
         // End
     }
     private void setDefaultGrafitySpeed() {
-        fallingSpeed = 1;
-        jumpingSpeed = 2;
+        fallingSpeed = 1f;
+        jumpingSpeed = 2f;
     }
     @Override
     public void run() {
@@ -128,8 +128,8 @@ public class PlayerController extends SingleController
             }
         }
         if (gameInput.keySpace) {
-            if(playerStatus == PlayerStatus.Standing) {
-                playerStatus = PlayerStatus.Jumping;
+            if(playerStatus == PlayerStatus.STANDING) {
+                playerStatus = PlayerStatus.JUMPING;
                 setDefaultGrafitySpeed();
                 System.out.println("JUMP");
             }
@@ -137,15 +137,15 @@ public class PlayerController extends SingleController
 
         // STATUS DOING
         switch (playerStatus) {
-            case Jumping:
+            case JUMPING:
                 jumpingSpeed += GRAFITY;
-            this.gameVector.dy = -(jumpingSpeed);
+            this.gameVector.dy = (int)(-jumpingSpeed);
                 break;
-            case Falling:
+            case FALLING:
                 fallingSpeed += GRAFITY;
-                this.gameVector.dy = (fallingSpeed);
+                this.gameVector.dy = (int)(fallingSpeed);
                 break;
-            case Standing:
+            case STANDING:
                 this.gameVector.dy = 0;
                 break;
         }
@@ -154,12 +154,12 @@ public class PlayerController extends SingleController
         //Start falling
         //this.getGameObject().getY() > FLOOR - this.getGameObject().getHeight() + FLOOR_CHANGE /* 350 */||
         if (this.getGameObject().getY() < Floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE /* 300 */) {
-            playerStatus = PlayerStatus.Falling;
+            playerStatus = PlayerStatus.FALLING;
         }
         // Start standing
         if (this.getGameObject().getY() >= Floor - this.getGameObject().getHeight() + FLOOR_CHANGE  /* 350 */) {
             this.getGameObject().setY(Floor - this.getGameObject().getHeight() + FLOOR_CHANGE);
-            playerStatus = PlayerStatus.Standing;
+            playerStatus = PlayerStatus.STANDING;
             setDefaultGrafitySpeed();
         }
 
