@@ -8,44 +8,45 @@ import java.awt.*;
  * Created by Hau on 06/08/2016.
  */
 public class Background {
-    private Image image;
     private int x;
     private int y;
-
-    public Background() {
-        this(0, 0);
-    }
-
-    public Background(int x, int y) {
-        this.x = x;
-        this.y = y;
-        image =  Utils.loadImage("Background2");
-
-    }
-
-    public Image getImage() {
-        return image;
-    }
+    private int speedX;
 
     public int getX() {
         return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
     }
 
     public int getY() {
         return y;
     }
 
-    public void draw(Graphics g) {
-        g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
-
-        this.x -= 2;
-
-        if(this.x <= -1 * image.getWidth(null)) {
-            this.x = this.x + image.getWidth(null) * 2;
-        }
+    public void setY(int y) {
+        this.y = y;
     }
 
-    public int getImageWidth() {
-        return image.getWidth(null);
+    public int getSpeedX() {
+        return speedX;
+    }
+
+    public void setSpeedX(int speedX) {
+        this.speedX = speedX;
+    }
+
+    public Background(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.speedX = 0;
+
+    }
+
+    public void update() {
+        x += speedX;
+        if (x <= -GameSetting.getInstance().getScreenWidth()) {
+            x += 2 * GameSetting.getInstance().getScreenWidth();
+        }
     }
 }

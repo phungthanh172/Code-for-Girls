@@ -1,5 +1,7 @@
 package controllers;
 
+import controllers.gamescenes.GameOverGameScene;
+import controllers.gamescenes.GameSceneListener;
 import models.Floor;
 import models.GameObject;
 import models.Player;
@@ -27,6 +29,16 @@ public class PlayerController extends SingleController
     private static final int JUMP_SPEED = 1;
 
     private int Floor = 400;
+
+    GameSceneListener gameSceneListener;
+
+    public GameSceneListener getGameSceneListener() {
+        return gameSceneListener;
+    }
+
+    public void setGameSceneListener(GameSceneListener gameSceneListener) {
+        this.gameSceneListener = gameSceneListener;
+    }
 
     //COUNTER
     private int count;
@@ -77,6 +89,9 @@ public class PlayerController extends SingleController
                 break;
             case KeyEvent.VK_SPACE:
                 this.gameInput.keySpace = true;
+                break;
+            case KeyEvent.VK_S:
+                gameSceneListener.changeGameScene(new GameOverGameScene(), false);
                 break;
         }
     }

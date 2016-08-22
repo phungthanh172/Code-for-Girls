@@ -1,42 +1,82 @@
 import controllers.PlayerController;
+import controllers.gamescenes.GameScene;
+import controllers.gamescenes.GameSceneListener;
+import controllers.gamescenes.MenuGameScene;
+import controllers.gamescenes.PlayGameScene;
+import models.GameSetting;
 import views.DisplayBackground;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 
-public class GameWindow extends JFrame {
-    Image background;
+public class GameWindow extends Frame implements Runnable, GameSceneListener{
+    BufferedImage bufferedImage;
+    Graphics graphicsBufferImage;
     Thread thread;
-    DisplayBackground scrollingBackground;
+    GameSetting gameSetting;
+    GameScene currentGameScene;
+    private Stack<GameScene> stack;
+
 
 
     public GameWindow() {
-        System.out.println("Game window constructor");
-        this.setSize(720, 480);
-        this.setLocation(0, 0);
-        scrollingBackground = new DisplayBackground();
-        getContentPane().add(scrollingBackground);
-        this.setVisible(true);
-        // Add window listener
+        configUI();
+        stack = new Stack<>();
+        changeGameScene(new MenuGameScene(), false);
+//         add key to controller player
+        this.addKeyListener(PlayerController.instance);
+        bufferedImage = new BufferedImage(gameSetting.getScreenWidth(), gameSetting.getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
+        graphicsBufferImage = bufferedImage.getGraphics();
+        thread = new Thread(this);
+        thread.start();
+
+        this.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    GameWindow.this.back();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+    }
+
+    private void configUI() {
+        gameSetting = GameSetting.getInstance();
+        this.setSize(gameSetting.getScreenWidth(), gameSetting.getScreenHeight());
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                System.out.println("windowOpened");
+
             }
 
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("windowClosing");
                 System.exit(0);
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                System.out.println("windowClosed");
+
             }
 
             @Override
@@ -59,25 +99,48 @@ public class GameWindow extends JFrame {
 
             }
         });
-        // add key to controller player
-        this.addKeyListener(PlayerController.instance);
+    }
 
-//        this.addMouseMotionListener(new MouseMotionListener() {
-//            @Override
-//            public void mouseDragged(MouseEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void mouseMoved(MouseEvent e) {
-//                plane1.moveTo(e.getX() - plane2Width / 2,
-//                        e.getY() - plane2Height / 2);
-//
-//            }
-//
-//        });
+    @Override
+    public void update(Graphics g) {
+        currentGameScene.draw(graphicsBufferImage);
+        g.drawImage(bufferedImage, 0, 0, null);
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                currentGameScene.run();
+                Thread.sleep(gameSetting.getThreadDelay());
+                repaint();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void changeGameScene(GameScene gameScene, boolean addToStack) {
+        if(currentGameScene != null && addToStack) {
+            this.removeKeyListener(currentGameScene.getKeyListener());
+            this.stack.push(currentGameScene);
+        }
+        currentGameScene = gameScene;
+        currentGameScene.setGameSceneListener(this);
+        this.addKeyListener(currentGameScene.getKeyListener());
 
     }
 
-
+    @Override
+    public void back() {
+        if(!stack.isEmpty()) {
+            this.removeKeyListener(currentGameScene.getKeyListener());
+            currentGameScene = stack.pop();
+            currentGameScene.setGameSceneListener(this);
+            this.addKeyListener(currentGameScene.getKeyListener());
+        } else {
+            //System.exit(0);
+        }
+    }
 }
