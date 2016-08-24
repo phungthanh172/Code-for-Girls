@@ -2,8 +2,7 @@ package views;
 
 import controllers.BoxControllerManager;
 import controllers.CollsionPool;
-import controllers.FloorControllerManager;
-import controllers.PlayerController;
+import controllers.*;
 import models.Background;
 import models.GameSetting;
 import utils.Utils;

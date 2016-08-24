@@ -2,8 +2,7 @@ package controllers.gamescenes;
 
 import controllers.BoxControllerManager;
 import controllers.CollsionPool;
-import controllers.FloorControllerManager;
-import controllers.PlayerController;
+import controllers.*;
 import models.Background;
 import models.GameObject;
 import models.GameObjectWithHp;
