@@ -2,15 +2,13 @@ package controllers;
 
 import controllers.gamescenes.GameOverGameScene;
 import controllers.gamescenes.GameSceneListener;
-import models.Floor;
 import models.GameObject;
 import models.GameObjectWithHp;
 import models.Player;
 import utils.Utils;
 import views.AnimationDrawer;
 import views.GameDrawer;
-import views.ImageDrawer;
-import controllers.PlayerStatus;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,7 +20,7 @@ public class PlayerController extends SingleController
         implements KeyListener, Colliable {
 
     private GameInput gameInput;
-    private static final int JUMP_SIZE = 50;
+    private static final int JUMP_SIZE = 70;
 
     private static final int FLOOR_CHANGE = 13;
 
@@ -31,9 +29,10 @@ public class PlayerController extends SingleController
     private static final float GRAFITY = 0.15f;
     private static final int JUMP_SPEED = 1;
 
-    private int Floor = 400;
+    private float floor = 400;
 
     GameSceneListener gameSceneListener;
+    private float walkX = 0;
 
     public GameSceneListener getGameSceneListener() {
         return gameSceneListener;
@@ -47,6 +46,7 @@ public class PlayerController extends SingleController
     private int count;
     private float fallingSpeed;
     private float jumpingSpeed;
+    private float speedX= 0.5f;
 
     //STATUS : Now 3 status Jumping/Falling/Standing and future add Attacking 1, Attacking 2, Dead, Falling with VaCham and Standing meaning Running
     private boolean jumping;
@@ -67,7 +67,7 @@ public class PlayerController extends SingleController
         CollsionPool.instance.add(this);
         //standing = true;
         playerStatus = PlayerStatus.STANDING;
-        Floor = 400;
+        floor = 400;
     }
 
     @Override
@@ -133,23 +133,33 @@ public class PlayerController extends SingleController
     }
     @Override
     public void run() {
+        //  Call function int getFloorValue(GameObject) Creat function in FloorController.instance
+        // Enter code here
+        // Tìm khi nào đưa gia trị Của Player Controller / Other Object xem vị trí nền của nó ở đâu trả về floor.getY()
+        floor = FloorControllerManager.instance.getFloorValue(this.gameObject);
 
+        //End
+        // Check floor
+
+
+        //End
         count++;
 
         if (gameObject.isAlive()) {
-            this.gameVector.dx = 0;
+            this.gameVector.dx = speedX;
             if (gameInput.keyRight) {
-                this.gameVector.dx += 1;
+                speedX = 1;
             }
             if (gameInput.keyLeft) {
-                this.gameVector.dx -= 1;
+                speedX = -1;
             }
         }
+
         if (gameInput.keySpace) {
             if(playerStatus == PlayerStatus.STANDING) {
                 playerStatus = PlayerStatus.JUMPING;
                 setDefaultGrafitySpeed();
-                System.out.println("JUMP");
+               // System.out.println("JUMP");
             }
         }
 
@@ -158,36 +168,46 @@ public class PlayerController extends SingleController
             case JUMPING:
                 jumpingSpeed += GRAFITY;
             this.gameVector.dy = (int)(-jumpingSpeed);
+                speedX = 1;
                 break;
             case FALLING:
                 fallingSpeed += GRAFITY;
+
                 this.gameVector.dy = (int)(fallingSpeed);
                 break;
             case STANDING:
+
                 this.gameVector.dy = 0;
                 break;
         }
         count++;
+        float maxHighJump = 300;
+        if(floor <= 480) {
+            maxHighJump = floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE;
+        }
         //CHANGE STATUS
         //Start falling
         //this.getGameObject().getY() > FLOOR - this.getGameObject().getHeight() + FLOOR_CHANGE /* 350 */||
-        if (this.getGameObject().getY() < Floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE /* 300 */) {
+        if (this.getGameObject().getY() < maxHighJump /* 300 */) {
             playerStatus = PlayerStatus.FALLING;
+            //speedX = 0.5f;
         }
         // Start standing
-        if (this.getGameObject().getY() >= Floor - this.getGameObject().getHeight() + FLOOR_CHANGE  /* 350 */) {
-            this.getGameObject().setY(Floor - this.getGameObject().getHeight() + FLOOR_CHANGE);
+
+        if (this.getGameObject().getY() >= floor - this.getGameObject().getHeight() + FLOOR_CHANGE  /* 350 */) {
+            this.getGameObject().setY(floor - this.getGameObject().getHeight() + FLOOR_CHANGE);
             playerStatus = PlayerStatus.STANDING;
             setDefaultGrafitySpeed();
+            //speedX = 0;
         }
 
+//        if(gameObject.getX() > 480 - gameObject.getHeight()){
+////            gameSceneListener.changeGameScene(new GameOverGameScene(), false);
+//            gameObject.destroy();
+//        }
+
         super.run();
-        // TODO: Call function int GetFloorValue(GameObject) Creat function in FloorController.instance
-        // Enter code here
-        // Tìm khi nào đưa gia trị Của Player Controller / Other Object xem vị trí nền của nó ở đâu trả về Floor.getY()
 
-
-        //End
     }
 
     public final static PlayerController instance = new PlayerController(
@@ -206,7 +226,7 @@ public class PlayerController extends SingleController
 //            colliable.getGameObject().destroy();
 //        }
 //        else if(colliable instanceof FloorController) {
-//            Floor = (int)colliable.getGameObject().getY();
+//            floor = (int)colliable.getGameObject().getY();
 //        }
     }
 
