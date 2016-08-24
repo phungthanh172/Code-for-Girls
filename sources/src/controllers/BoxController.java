@@ -21,7 +21,7 @@ public class BoxController extends SingleController implements Colliable {
     public void onCollide(Colliable colliable) {
         if(colliable instanceof PlayerController) {
             this.getGameObject().destroy();
-
+            PlayerController.instance.decreaseHP(1);
         }
     }
 }

@@ -10,6 +10,7 @@ import java.awt.*;
  */
 public class ImageDrawer implements GameDrawer {
 
+
     private Image img;
 
     public ImageDrawer(Image img) {
@@ -24,5 +25,10 @@ public class ImageDrawer implements GameDrawer {
     public void draw(Graphics g, GameObject gameObject) {
         g.drawImage(img, (int)gameObject.getX(), (int)gameObject.getY(),
                 gameObject.getWidth(), gameObject.getHeight(), null);
+    }
+
+    @Override
+    public void run() {
+
     }
 }

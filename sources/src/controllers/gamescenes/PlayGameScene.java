@@ -5,6 +5,8 @@ import controllers.CollsionPool;
 import controllers.FloorControllerManager;
 import controllers.PlayerController;
 import models.Background;
+import models.GameObject;
+import models.GameObjectWithHp;
 import models.GameSetting;
 import utils.Utils;
 
@@ -39,11 +41,26 @@ public class PlayGameScene implements GameScene {
 
         buffer.drawImage(background, backOne.getX(), backOne.getY(), null);
         buffer.drawImage(background, backTwo.getX(), backTwo.getY(), null);
+        healthBarDraw(buffer);
         PlayerController.instance.draw(buffer);
         BoxControllerManager.instance.draw(buffer);
         FloorControllerManager.instance.draw(buffer);
 
         graphics.drawImage(back, 0, 0, null);
+    }
+
+    private void healthBarDraw(Graphics g) {
+        GameObject gameObject = PlayerController.instance.getGameObject();
+        float health = ((GameObjectWithHp) gameObject).getHp();
+        float maxHealth = ((GameObjectWithHp) gameObject).getMaxHP();
+        float healthScale = health / maxHealth;
+        Color healthBarColor = Color.green;
+        int healthBarX = 50;
+        int healthBarY = 50;
+        int healthBarWidth = 200;
+        int healthBarHeight = 20;
+        g.setColor(healthBarColor);
+        g.fillRect(healthBarX, healthBarY, (int) (healthBarWidth * healthScale), healthBarHeight);
     }
 
     public void run() {

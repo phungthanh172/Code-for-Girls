@@ -4,7 +4,10 @@ import controllers.gamescenes.GameOverGameScene;
 import controllers.gamescenes.GameSceneListener;
 import models.Floor;
 import models.GameObject;
+import models.GameObjectWithHp;
 import models.Player;
+import utils.Utils;
+import views.AnimationDrawer;
 import views.GameDrawer;
 import views.ImageDrawer;
 import controllers.PlayerStatus;
@@ -189,17 +192,24 @@ public class PlayerController extends SingleController
 
     public final static PlayerController instance = new PlayerController(
             new Player(150, 350),
-            new ImageDrawer("player")
+//            new AnimationDrawer(
+//                    Utils.loadFromSprite("resources/player_run.png", true, 70, 75, 1)
+//            )
+            new ImageDrawer(Utils.loadImage("player"))
     );
 
     @Override
     public void onCollide(Colliable colliable) {
 
-        if(colliable instanceof BoxController){
-            colliable.getGameObject().destroy();
-        }
+//        if(colliable instanceof BoxController){
+//            colliable.getGameObject().destroy();
+//        }
 //        else if(colliable instanceof FloorController) {
 //            Floor = (int)colliable.getGameObject().getY();
 //        }
+    }
+
+    public void decreaseHP(int amount) {
+        ((GameObjectWithHp)gameObject).decreaseHP(amount);
     }
 }

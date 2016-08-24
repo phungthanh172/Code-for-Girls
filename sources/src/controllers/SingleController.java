@@ -37,5 +37,6 @@ public class SingleController implements BaseController {
     @Override
     public void run() {
         gameObject.move(this.gameVector);
+        gameDrawer.run();
     }
 }
