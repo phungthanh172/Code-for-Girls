@@ -2,9 +2,12 @@ package views;
 
 import controllers.BoxControllerManager;
 import controllers.CollsionPool;
+import controllers.Enemy.EnemyControllerManager;
 import controllers.FloorControllerManager;
 import controllers.PlayerController;
 import models.Background;
+import models.GameSetting;
+import utils.Utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,55 +15,52 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Hau on 06/08/2016.
  */
-public class DisplayBackground extends Canvas implements Runnable {
+public class DisplayBackground extends Canvas {
     private Background backOne;
     private Background backTwo;
     private BufferedImage back;
+    private Image background;
 
 
     public DisplayBackground() {
-        backOne = new Background();
-        backTwo = new Background(backOne.getImageWidth(), 0);
-
-        new Thread(this).start();
+        backOne = new Background(0, 0);
+        backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
+        background = Utils.loadImage("Background2");
     }
 
-    @Override
-    public void update(Graphics g) {
+
+    public void draw(Graphics g) {
         paint(g);
+//        System.out.println("As");
     }
+
     public void paint(Graphics graphics) {
-        Graphics2D g2d = (Graphics2D) graphics;
-        if (back == null)
-            back = (BufferedImage) (createImage(getWidth(), getHeight()));
 
-        Graphics buffer = back.createGraphics();
-        backOne.draw(buffer);
-        backTwo.draw(buffer);
-//        System.out.println("a");
+        back = new BufferedImage(GameSetting.getInstance().getScreenWidth(),
+                GameSetting.getInstance().getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics buffer = back.getGraphics();
 
+        buffer.drawImage(background, backOne.getX(), backOne.getY(), this);
+        buffer.drawImage(background, backTwo.getX(), backTwo.getY(), this);
         PlayerController.instance.draw(buffer);
         BoxControllerManager.instance.draw(buffer);
         FloorControllerManager.instance.draw(buffer);
-
-        g2d.drawImage(back, null, 0, 0);
+        EnemyControllerManager.instance.draw(buffer);
+        graphics.drawImage(back, 0, 0, null);
     }
 
-    @Override
     public void run() {
 
-        while (true) {
-            try {
 
-                PlayerController.instance.run();
-                BoxControllerManager.instance.run();
-                FloorControllerManager.instance.run();
-                CollsionPool.instance.run();
-                Thread.sleep(17);
-                repaint();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        backOne.update();
+        backTwo.update();
+        PlayerController.instance.run();
+        BoxControllerManager.instance.run();
+        FloorControllerManager.instance.run();
+        EnemyControllerManager.instance.run();
+        CollsionPool.instance.run();
+        System.out.println("as");
+
+
     }
 }

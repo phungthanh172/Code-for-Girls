@@ -1,39 +1,59 @@
 package controllers;
 
+import controllers.gamescenes.GameOverGameScene;
+import controllers.gamescenes.GameSceneListener;
+import models.Floor;
 import models.GameObject;
+import models.GameObjectWithHp;
 import models.Player;
+import utils.Utils;
+import views.AnimationDrawer;
 import views.GameDrawer;
 import views.ImageDrawer;
-
+import controllers.PlayerStatus;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Created by qhuydtvt on 7/30/2016.
+ * Created by Thành Đẹp Trai on Một ngày đẹp trời.
  */
 public class PlayerController extends SingleController
         implements KeyListener, Colliable {
 
-
-    //private ControllerManager bulletManager;
     private GameInput gameInput;
+    private static final int JUMP_SIZE = 50;
+
+    private static final int FLOOR_CHANGE = 13;
 
     public static final int SPEED = 10;
     public static final int ATK_SPEED = 3;
-    private static final float GRAFITY = 0.05f;
+    private static final float GRAFITY = 0.15f;
     private static final int JUMP_SPEED = 1;
+
+    private int Floor = 400;
+
+    GameSceneListener gameSceneListener;
+
+    public GameSceneListener getGameSceneListener() {
+        return gameSceneListener;
+    }
+
+    public void setGameSceneListener(GameSceneListener gameSceneListener) {
+        this.gameSceneListener = gameSceneListener;
+    }
+
     //COUNTER
     private int count;
     private float fallingSpeed;
-
+    private float jumpingSpeed;
 
     //STATUS : Now 3 status Jumping/Falling/Standing and future add Attacking 1, Attacking 2, Dead, Falling with VaCham and Standing meaning Running
     private boolean jumping;
     private boolean falling;
     private boolean standing;
     //
-
+    private PlayerStatus playerStatus;
 
     public PlayerController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
@@ -45,7 +65,9 @@ public class PlayerController extends SingleController
     //    this.bulletManager = new ControllerManager();
         this.gameInput = new GameInput();
         CollsionPool.instance.add(this);
-        standing = true;
+        //standing = true;
+        playerStatus = PlayerStatus.STANDING;
+        Floor = 400;
     }
 
     @Override
@@ -70,6 +92,9 @@ public class PlayerController extends SingleController
                 break;
             case KeyEvent.VK_SPACE:
                 this.gameInput.keySpace = true;
+                break;
+            case KeyEvent.VK_S:
+                gameSceneListener.changeGameScene(new GameOverGameScene(), false);
                 break;
         }
     }
@@ -98,12 +123,14 @@ public class PlayerController extends SingleController
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        // TODO : DRAW BULLET IF ATTACK
         // Enter code here
 
         // End
     }
-
+    private void setDefaultGrafitySpeed() {
+        fallingSpeed = 1f;
+        jumpingSpeed = 2f;
+    }
     @Override
     public void run() {
 
@@ -119,154 +146,70 @@ public class PlayerController extends SingleController
             }
         }
         if (gameInput.keySpace) {
-            if (standing) {
-                standing = false;
-                jumping = true;
-                falling = false;
-                fallingSpeed = 1;
+            if(playerStatus == PlayerStatus.STANDING) {
+                playerStatus = PlayerStatus.JUMPING;
+                setDefaultGrafitySpeed();
                 System.out.println("JUMP");
             }
         }
-        // DEBUG
-        //    System.out.println("TOA DO Y CUA PLAYER : " + this.getGameObject().getY());
 
-        // Jump
-        if (jumping && !falling && !standing) {
-            this.gameVector.dy = -2;
-
-        }
-        // Falling
-        if (falling && !jumping && !standing) {
-            fallingSpeed += GRAFITY;
-            this.gameVector.dy = (int)(fallingSpeed);
-            System.out.println("AAA" + fallingSpeed);
-        }
-        //Standing
-        if (standing && !falling && !jumping) {
-            this.gameVector.dy = 0;
+        // STATUS DOING
+        switch (playerStatus) {
+            case JUMPING:
+                jumpingSpeed += GRAFITY;
+            this.gameVector.dy = (int)(-jumpingSpeed);
+                break;
+            case FALLING:
+                fallingSpeed += GRAFITY;
+                this.gameVector.dy = (int)(fallingSpeed);
+                break;
+            case STANDING:
+                this.gameVector.dy = 0;
+                break;
         }
         count++;
-//        // Start falling
-//        if (this.getGameObject().getY() < 330) {
-//            standing = false;
-//            jumping = false;
-//            falling = true;
-//        }
+        //CHANGE STATUS
         //Start falling
-        if (this.getGameObject().getY() > 350 || this.getGameObject().getY() < 300) {
-            standing = false;
-            jumping = false;
-            falling = true;
-
-            System.out.println("AAAAAAAAAAAAAAAAAAA");
+        //this.getGameObject().getY() > FLOOR - this.getGameObject().getHeight() + FLOOR_CHANGE /* 350 */||
+        if (this.getGameObject().getY() < Floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE /* 300 */) {
+            playerStatus = PlayerStatus.FALLING;
         }
         // Start standing
-        if (this.getGameObject().getY() >= 350) {
-            this.getGameObject().setY(350);
-            standing = true;
-            jumping = false;
-            falling = false;
-            fallingSpeed = 1;
+        if (this.getGameObject().getY() >= Floor - this.getGameObject().getHeight() + FLOOR_CHANGE  /* 350 */) {
+            this.getGameObject().setY(Floor - this.getGameObject().getHeight() + FLOOR_CHANGE);
+            playerStatus = PlayerStatus.STANDING;
+            setDefaultGrafitySpeed();
         }
 
-        // Fall
-
-
-        // Stand
-
-
-//            if(count > ATK_SPEED) {
-////                BulletController bulletController = new BulletController(
-////                        new Bullet(this.gameObject.getMiddleX() - Bullet.WIDTH / 2, this.gameObject.getY()),
-////                        new ImageDrawer("resources/bullet.png")
-//                );
-//                bulletManager.add(bulletController);
-//                count = 0;
-//            }
-
-
-        //       }
-//        if(input.isKeyDown(Input.KEY_RIGHT)){
-//            character = moveRight;
-//            charX += 0.1f*delta;
-//            playerPoly.setX(charX);
-//            if(entityCollision()){
-//                charX -= 0.1f*delta;
-//                playerPoly.setX(charX);
-//            }
-//        }
-//        if(input.isKeyDown(Input.KEY_LEFT)){
-//            character = moveLeft;
-//            charX -= 0.1f*delta;
-//            playerPoly.setX(charX);
-//            if(entityCollision()){
-//                charX += 0.1f*delta;
-//                playerPoly.setX(charX);
-//            }
-//            else{
-//                isFalling = true;
-//            }
-//        }
-//
-//        if(input.isKeyPressed(Input.KEY_UP) && isFalling == false){
-//            isJumping = true;
-//            jumpVelocity = -0.6f;
-//        }
-//        if(isJumping){
-//            charY += jumpVelocity*delta;
-//            jumpVelocity += 0.01f;
-//            playerPoly.setY(charY);
-//
-//            if(jumpVelocity >= 0){ //Switches to fall mode
-//                isFalling = true;
-//                isJumping = false;
-//                fallVelocity = 0.1f;
-//                gravity = 0.01f;
-//            }
-//        }
-//
-//        if(isFalling){
-//            fallVelocity += gravity;
-//            charY += fallVelocity*delta;
-//            playerPoly.setY(charY);
-//            if(entityCollision()){
-//                float i = collisionBlock.blockPoly.getMinY();
-//                fallVelocity = 0;
-//                gravity = 0;
-//                charY = (i)-playerPoly.getHeight();
-//                playerPoly.setY(charY);
-//                isFalling = false;
-//            }
-//
-//        }
-//    }
-//    public boolean entityCollision() throws SlickException{
-//        for(int i = 0; i < TestMap.blocks.size(); i++){
-//            Block entity = (Block)TestMap.blocks.get(i);
-//            if(playerPoly.intersects(entity.blockPoly)){
-//                collisionBlock = (Block)TestMap.blocks.get(i);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-
         super.run();
+        // TODO: Call function int GetFloorValue(GameObject) Creat function in FloorController.instance
+        // Enter code here
+        // Tìm khi nào đưa gia trị Của Player Controller / Other Object xem vị trí nền của nó ở đâu trả về Floor.getY()
 
+
+        //End
     }
 
     public final static PlayerController instance = new PlayerController(
             new Player(150, 350),
-            new ImageDrawer("player")
+//            new AnimationDrawer(
+//                    Utils.loadFromSprite("resources/player_run.png", true, 70, 75, 1)
+//            )
+            new ImageDrawer(Utils.loadImage("player"))
     );
 
     @Override
     public void onCollide(Colliable colliable) {
 
-        if(colliable instanceof BoxController){
-            colliable.getGameObject().destroy();
-            System.out.println("DEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-        }
+//        if(colliable instanceof BoxController){
+//            colliable.getGameObject().destroy();
+//        }
+//        else if(colliable instanceof FloorController) {
+//            Floor = (int)colliable.getGameObject().getY();
+//        }
+    }
+
+    public void decreaseHP(int amount) {
+        ((GameObjectWithHp)gameObject).decreaseHP(amount);
     }
 }
