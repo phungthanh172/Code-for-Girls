@@ -19,9 +19,9 @@ public class BoxControllerManager extends ControllerManager {
     @Override
     public void run() {
         super.run();
-        if(count % 500 == 0) {
+        if(count % 200 == 0) {
             BoxController boxController = new BoxController(
-                    new Box(720, 300), new ImageDrawer("brickblock")
+                    new Box(720, 300), new ImageDrawer("coin")
             );
             this.add(boxController);
         }

@@ -12,11 +12,11 @@ public class FloorControllerManager extends ControllerManager {
     private FloorControllerManager() {
         super();
         int x = 0;
-        for(int i = 0 ; i < 1 ; i++) {
+        for (int i = 0; i < 1; i++) {
             FloorController floorManager = new FloorController(
                     new Floor(x, 400), new ImageDrawer("land2")
             );
-        x += 700;
+            x += 700;
             this.add(floorManager);
         }
     }
@@ -24,10 +24,9 @@ public class FloorControllerManager extends ControllerManager {
     @Override
     public void run() {
         super.run();
-
-        if(this.size() < 3) {
+        if (this.size() < 3) {
             this.add(new FloorController(
-                    new Floor( 720 , 400), new ImageDrawer("land2")
+                    new Floor(720, 400), new ImageDrawer("land2")
             ));
         }
     }
