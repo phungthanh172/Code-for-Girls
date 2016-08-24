@@ -39,7 +39,7 @@ public class Background {
     public Background(int x, int y) {
         this.x = x;
         this.y = y;
-        this.speedX = 0;
+        this.speedX = -2;
 
     }
 

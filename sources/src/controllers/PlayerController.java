@@ -192,10 +192,11 @@ public class PlayerController extends SingleController
 
     public final static PlayerController instance = new PlayerController(
             new Player(150, 350),
-//            new AnimationDrawer(
-//                    Utils.loadFromSprite("resources/player_run.png", true, 70, 75, 1)
-//            )
-            new ImageDrawer(Utils.loadImage("player"))
+            new AnimationDrawer(
+                    Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
+            )
+
+//            new ImageDrawer(Utils.loadImage("player"))
     );
 
     @Override

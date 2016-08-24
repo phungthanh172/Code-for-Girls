@@ -37,7 +37,7 @@ public class AnimationDrawer implements GameDrawer {
                 gameObject.getHeight(), null);
 
         timeCounter++;
-        if(timeCounter >= 100) {
+        if(timeCounter >= 7) {
             timeCounter = 0;
             imageIndex++;
             if(imageIndex >= imageVector.size()) {
