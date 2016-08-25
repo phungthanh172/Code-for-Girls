@@ -4,7 +4,6 @@ import controllers.gamescenes.GameSceneListener;
 import controllers.gamescenes.MenuGameScene;
 import controllers.gamescenes.PlayGameScene;
 import models.GameSetting;
-import views.DisplayBackground;
 
 import javax.swing.*;
 
@@ -124,11 +123,13 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener{
     public void changeGameScene(GameScene gameScene, boolean addToStack) {
         if(currentGameScene != null && addToStack) {
             this.removeKeyListener(currentGameScene.getKeyListener());
+//            this.removeMouseListener(currentGameScene.getMouseListener());
             this.stack.push(currentGameScene);
         }
         currentGameScene = gameScene;
         currentGameScene.setGameSceneListener(this);
         this.addKeyListener(currentGameScene.getKeyListener());
+        this.addMouseListener(currentGameScene.getMouseListener());
 
     }
 
@@ -136,6 +137,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener{
     public void back() {
         if(!stack.isEmpty()) {
             this.removeKeyListener(currentGameScene.getKeyListener());
+            this.removeMouseListener(currentGameScene.getMouseListener());
             currentGameScene = stack.pop();
             currentGameScene.setGameSceneListener(this);
             this.addKeyListener(currentGameScene.getKeyListener());

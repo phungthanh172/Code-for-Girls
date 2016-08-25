@@ -11,12 +11,14 @@ import utils.Utils;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 /**
  * Created by Hau on 22/08/2016.
  */
-public class PlayGameScene implements GameScene {
+public class PlayGameScene implements GameScene, MouseListener {
     private Background backOne;
     private Background backTwo;
     private BufferedImage back;
@@ -82,8 +84,38 @@ public class PlayGameScene implements GameScene {
     }
 
     @Override
+    public MouseListener getMouseListener() {
+        return null;
+    }
+
+    @Override
     public void setGameSceneListener(GameSceneListener gameSceneListener) {
         this.gameSceneListener = gameSceneListener;
         PlayerController.instance.setGameSceneListener(this.gameSceneListener);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
