@@ -1,6 +1,8 @@
 package controllers.gamescenes;
 
+import controllers.PlayerController;
 import models.GameSetting;
+import models.Player;
 import utils.Utils;
 
 import java.awt.*;
@@ -22,8 +24,15 @@ public class GameOverGameScene implements GameScene, KeyListener, MouseListener 
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImage, 0, 0, GameSetting.getInstance().getScreenWidth(),
-                GameSetting.getInstance().getScreenHeight(), null);
+//        g.drawImage(backgroundImage, 0, 0, GameSetting.getInstance().getScreenWidth(),
+//                GameSetting.getInstance().getScreenHeight(), null);
+        int x = GameSetting.getInstance().getScreenWidth() / 4 + 120;
+        int y = GameSetting.getInstance().getScreenHeight() / 2;
+        Font font = new Font("arial", Font.TYPE1_FONT, 50);
+        g.setFont(font);
+        g.setColor(Color.BLACK);
+        g.drawString("Score" , x , y - 70);
+        g.drawString("" + ((Player) PlayerController.instance.getGameObject()).getScore(), x + 35, y);
     }
 
     @Override

@@ -3,10 +3,7 @@ package controllers.gamescenes;
 import controllers.BoxControllerManager;
 import controllers.CollsionPool;
 import controllers.*;
-import models.Background;
-import models.GameObject;
-import models.GameObjectWithHp;
-import models.GameSetting;
+import models.*;
 import utils.Utils;
 
 import java.awt.*;
@@ -43,11 +40,19 @@ public class PlayGameScene implements GameScene, MouseListener {
         buffer.drawImage(background, backOne.getX(), backOne.getY(), null);
         buffer.drawImage(background, backTwo.getX(), backTwo.getY(), null);
         healthBarDraw(buffer);
+        scoreDraw(buffer);
         PlayerController.instance.draw(buffer);
         BoxControllerManager.instance.draw(buffer);
         FloorControllerManager.instance.draw(buffer);
 
         graphics.drawImage(back, 0, 0, null);
+    }
+
+    private void scoreDraw(Graphics g) {
+        Font font = new Font("arial", Font.TYPE1_FONT, 20);
+        g.setFont(font);
+        g.setColor(Color.BLACK);
+        g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
     }
 
     private void healthBarDraw(Graphics g) {

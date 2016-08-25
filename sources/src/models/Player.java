@@ -5,7 +5,7 @@ import controllers.ImagePlayerStatus;
 /**
  * Created by KhacThanh on 8/6/2016.
  */
-public class Player extends GameObjectWithHp{
+public class Player extends GameObjectWithHp {
     private static final int DEFAULT_RUN_WIDTH = 45;
     private static final int DEFAULT_RUN_HEIGHT = 75;
     private static final int DEFAULT_SLIDE_WIDTH = 75;
@@ -13,14 +13,24 @@ public class Player extends GameObjectWithHp{
     private static final int DEFAULT_DEAD_WIDTH = 75;
     private static final int DEFAULT_DEAD_HEIGHT = 75;
     private static final int HP_DEFAULT = 50;
+
+    public int getScore() {
+        return score;
+    }
+
+    private int score;
+
     public Player(int x, int y, int width, int height, int hp) {
         super(x, y, width, height, hp);
     }
+
     public Player(int x, int y) {
         super(x, y, DEFAULT_RUN_WIDTH, DEFAULT_RUN_HEIGHT, HP_DEFAULT);
+        this.score = 0;
     }
+
     public Player(int x, int y, ImagePlayerStatus imagePlayerStatus, int hp) {
-            super(x, y, DEFAULT_RUN_WIDTH, DEFAULT_RUN_HEIGHT, HP_DEFAULT);
+        super(x, y, DEFAULT_RUN_WIDTH, DEFAULT_RUN_HEIGHT, HP_DEFAULT);
         switch (imagePlayerStatus) {
             case RUN:
                 width = DEFAULT_RUN_WIDTH;
@@ -37,6 +47,9 @@ public class Player extends GameObjectWithHp{
         }
     }
 
+    public void increaseScore() {
+        this.score++;
+    }
 
 
 }
