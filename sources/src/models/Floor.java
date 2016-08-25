@@ -19,12 +19,12 @@ public class Floor extends GameObject {
     public Floor(int x , int y, FloorState floorState){
         super(x,y,0,DEFAULT_HEIGHT);
         switch (floorState){
-            case LongHigh:
-            case LongLow:
+            case LONG_HIGH:
+            case LONG_LOW:
                 width = DEFAULT_LONG_WIDTH;
                 break;
-            case ShortHigh:
-            case ShortLow:
+            case SHORT_HIGH:
+            case SHORT_LOW:
                 width = DEFAULT_SHORT_WIDTH;
                 break;
         }

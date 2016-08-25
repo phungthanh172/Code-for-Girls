@@ -2,7 +2,6 @@ package controllers;
 
 import models.*;
 import models.GameObject;
-import models.Player;
 import views.ImageDrawer;
 
 import java.util.Iterator;
@@ -19,13 +18,13 @@ public class FloorControllerManager extends ControllerManager {
         super();
         int x = 0;
         //changeSize = 380;
-        for (int i = 0; i < 1; i++) {
+      //  for (int i = 0; i < 1; i++) {
             FloorController floorManager = new FloorController(
-                    new Floor(x, 400), new ImageDrawer("land2")
+                    new Floor(0, 400), new ImageDrawer("land2")
             );
-            x += 700;
+       //    x += 700;
             this.add(floorManager);
-        }
+       // }
     }
 
     @Override
@@ -41,14 +40,14 @@ public class FloorControllerManager extends ControllerManager {
 
             FloorState floorState = getRandomFloorState();
             switch (floorState){
-                case LongHigh:
+                case LONG_HIGH:
                     this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 50), 420, floorState) , new ImageDrawer("Land2")
+                            new Floor((int)(getXLastFloor() + 70), 420, floorState) , new ImageDrawer("Land2")
                     ));
                     break;
-                case ShortHigh:
+                case SHORT_HIGH:
                     this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 50), 420, floorState) , new ImageDrawer("Land2_short")
+                            new Floor((int)(getXLastFloor() + 70), 400, floorState) , new ImageDrawer("Land2_short")
                     ));
                     break;
             }
@@ -78,11 +77,11 @@ public class FloorControllerManager extends ControllerManager {
     public FloorState getRandomFloorState() {
         Random r = new Random();
         int i = r.nextInt(5);
-        //if(i > 3) {
-            return FloorState.ShortHigh;
-        //} else {
-        //    return FloorState.LongHigh;
-        //}
+        if(i > 3) {
+            return FloorState.SHORT_HIGH;
+        } else {
+            return FloorState.LONG_HIGH;
+        }
 
     }
 }

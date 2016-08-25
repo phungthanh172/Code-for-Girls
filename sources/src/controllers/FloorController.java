@@ -9,7 +9,7 @@ import views.ImageDrawer;
  * Created by Ha San~ on 8/6/2016.
  */
 public class FloorController extends SingleController implements Colliable{
-    public final static int SPEED =1;
+    public final static int SPEED = 2;
     public FloorController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         this.gameVector.dx =-SPEED;

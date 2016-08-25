@@ -12,7 +12,7 @@ import java.awt.*;
 public class SingleController implements BaseController {
 
     protected GameObject gameObject;
-    private GameDrawer gameDrawer;
+    protected GameDrawer gameDrawer;
     protected GameVector gameVector;
 
     public SingleController(GameObject gameObject, GameDrawer gameDrawer) {

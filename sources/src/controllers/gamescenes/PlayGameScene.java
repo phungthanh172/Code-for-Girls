@@ -63,10 +63,7 @@ public class PlayGameScene implements GameScene {
     }
 
     public void run() {
-
-
         backOne.update();
-        System.out.println(backOne.getX());
         backTwo.update();
         PlayerController.instance.run();
         BoxControllerManager.instance.run();

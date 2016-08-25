@@ -9,7 +9,7 @@ import views.GameDrawer;
 public class BoxController extends SingleController implements Colliable {
 
 
-    public static final int SPEED = 1;
+    public static final int SPEED = 2;
 
     public BoxController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
@@ -21,7 +21,7 @@ public class BoxController extends SingleController implements Colliable {
     public void onCollide(Colliable colliable) {
         if(colliable instanceof PlayerController) {
             this.getGameObject().destroy();
-            PlayerController.instance.decreaseHP(1);
+            PlayerController.instance.decreaseHP(20);
         }
     }
 }
