@@ -11,9 +11,6 @@ public class BoxControllerManager extends ControllerManager {
     private int count = 0;
     private BoxControllerManager() {
         super();
-
-
-
     }
 
     @Override

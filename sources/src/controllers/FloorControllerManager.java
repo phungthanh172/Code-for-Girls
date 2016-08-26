@@ -11,7 +11,7 @@ import java.util.Random;
  * Created by Ha San~ on 8/6/2016.
  */
 public class FloorControllerManager extends ControllerManager {
-    public final static FloorControllerManager instance = new FloorControllerManager();
+    public static FloorControllerManager instance = new FloorControllerManager();
     private int changeSize;
 
     private FloorControllerManager() {
@@ -85,6 +85,6 @@ public class FloorControllerManager extends ControllerManager {
 
     }
     public void reset(){
-        this.getRandomFloorState();
+        instance = new FloorControllerManager();
     }
 }

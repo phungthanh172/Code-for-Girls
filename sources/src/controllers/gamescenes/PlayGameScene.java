@@ -40,9 +40,9 @@ public class PlayGameScene implements GameScene,MouseListener {
         buffer.drawImage(background, backTwo.getX(), backTwo.getY(), null);
         healthBarDraw(buffer);
         scoreDraw(buffer);
-        PlayerController.instance.draw(buffer);
-        BoxControllerManager.instance.draw(buffer);
         FloorControllerManager.instance.draw(buffer);
+        BoxControllerManager.instance.draw(buffer);
+        PlayerController.instance.draw(buffer);
 
         graphics.drawImage(back, 0, 0, null);
     }
