@@ -22,4 +22,7 @@ public class GiftControllerManager extends ControllerManager {
             this.add(giftSpeedController);
         }
     }
+    public void reset(){
+        this.singleControllerVector.setSize(0);
+    }
 }

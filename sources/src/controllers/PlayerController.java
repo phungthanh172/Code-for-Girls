@@ -299,6 +299,9 @@ public class PlayerController extends SingleController
                 new Player(150,350,0),
                 new AnimationDrawer(Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)));
     }
+    public void increaseHP(int amount){
+        ((GameObjectWithHp)gameObject).increaseHP(amount);
+    }
     private void die() {
         AnimationDrawer animationDrawer = new AnimationDrawer(
                 Utils.loadFromSprite("resources/dead_final.png", true, 160, 160, 1), false, true, 14
