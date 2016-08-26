@@ -144,6 +144,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener{
             currentGameScene = stack.pop();
             currentGameScene.setGameSceneListener(this);
             this.addKeyListener(currentGameScene.getKeyListener());
+            this.addMouseListener(currentGameScene.getMouseListener());
         } else {
             //System.exit(0);
         }

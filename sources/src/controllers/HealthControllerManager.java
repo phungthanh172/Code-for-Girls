@@ -4,6 +4,8 @@ import models.Box;
 import models.Health;
 import views.ImageDrawer;
 
+import java.util.Iterator;
+
 /**
  * Created by Ha San~ on 8/27/2016.
  */

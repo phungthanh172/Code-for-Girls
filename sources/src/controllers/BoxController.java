@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.gamescenes.OptionGameScene;
 import models.GameObject;
 import utils.Utils;
 import views.GameDrawer;
@@ -10,7 +11,6 @@ import views.GameDrawer;
 public class BoxController extends SingleController implements Colliable {
 
 
-
     public BoxController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollsionPool.instance.add(this);
@@ -18,10 +18,12 @@ public class BoxController extends SingleController implements Colliable {
 
     @Override
     public void onCollide(Colliable colliable) {
-        if(colliable instanceof PlayerController) {
+        if (colliable instanceof PlayerController) {
             this.getGameObject().destroy();
             PlayerController.instance.decreaseHP(20);
-            Utils.playSound("resources/coliable1.wav", false);
+            if (OptionGameScene.turnOnSound) {
+                Utils.playSound("resources/coliable1.wav", false);
+            }
         }
     }
 }

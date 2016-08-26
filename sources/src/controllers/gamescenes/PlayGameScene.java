@@ -21,11 +21,12 @@ public class PlayGameScene implements GameScene,MouseListener {
     private BufferedImage back;
     private Image background;
     GameSceneListener gameSceneListener;
+    private int count;
 
 
     public PlayGameScene() {
         reset();
-        Utils.playSound("resources/music.wav", true);
+
     }
 
 
@@ -58,6 +59,8 @@ public class PlayGameScene implements GameScene,MouseListener {
         CollsionPool.instance.reset();
         GiftControllerManager.instance.reset();
         CollsionPool.instance.add(PlayerController.instance);
+        SingleController.speedChange = false;
+//        ControllerManager.point = false;
     }
     private void scoreDraw(Graphics g) {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);
@@ -80,6 +83,13 @@ public class PlayGameScene implements GameScene,MouseListener {
     }
 
     public void run() {
+        count++;
+        if (count >= 100) {
+            count = 0;
+            if (OptionGameScene.turnOnSound) {
+                Utils.playSound("resources/music.wav", false);
+            }
+        }
         backOne.update();
         backTwo.update();
         PlayerController.instance.run();

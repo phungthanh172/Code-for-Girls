@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.gamescenes.OptionGameScene;
 import models.GameObject;
 import utils.Utils;
 import views.GameDrawer;
@@ -16,10 +17,12 @@ public class HealthController extends SingleController implements Colliable {
 
     @Override
     public void onCollide(Colliable colliable) {
-        if(colliable instanceof PlayerController) {
+        if (colliable instanceof PlayerController) {
             this.getGameObject().destroy();
             PlayerController.instance.increaseHP(20);
-            Utils.playSound("resources/coliable1.wav", false);
+            if (OptionGameScene.turnOnSound) {
+                Utils.playSound("resources/coliable1.wav", false);
+            }
         }
     }
 }

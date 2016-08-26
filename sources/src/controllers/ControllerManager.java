@@ -12,7 +12,7 @@ import java.util.Vector;
 public class ControllerManager implements BaseController {
 
     protected Vector<SingleController> singleControllerVector;
-    private boolean point;
+    public  boolean point;
     private int count;
 
     public ControllerManager() {
@@ -47,7 +47,7 @@ public class ControllerManager implements BaseController {
         if (point) {
             count++;
         }
-        if (GameSetting.getInstance().toSeconds(count) >= 5000) {
+        if (GameSetting.getInstance().toSeconds(count) >= 2000) {
             count = 0;
             System.out.println("TANG");
             decreaseSpeed();

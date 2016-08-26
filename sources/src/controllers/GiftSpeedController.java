@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.gamescenes.OptionGameScene;
 import models.GameObject;
 import models.*;
 import utils.Utils;
@@ -18,18 +19,20 @@ public class GiftSpeedController extends SingleController implements Colliable {
 
     @Override
     public void onCollide(Colliable colliable) {
-        if(colliable instanceof PlayerController) {
+        if (colliable instanceof PlayerController) {
             this.getGameObject().destroy();
             FloorControllerManager.instance.increaseSpeed();
             BoxControllerManager.instance.increaseSpeed();
             GiftControllerManager.instance.increaseSpeed();
             HealthControllerManager.instance.increaseSpeed();
             SingleController.speedChange = true;
-            Utils.playSound("resources/coliable1.wav", false);
+            if (OptionGameScene.turnOnSound) {
+                Utils.playSound("resources/coliable1.wav", false);
+            }
         }
     }
 
-    public static GiftSpeedController create(int x, int y){
+    public static GiftSpeedController create(int x, int y) {
         return new GiftSpeedController(new Gift(x, y), new ImageDrawer("gift_speed"));
     }
 

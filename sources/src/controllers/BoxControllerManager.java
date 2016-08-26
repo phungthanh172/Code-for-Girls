@@ -5,6 +5,8 @@ import models.Floor;
 import models.GameSetting;
 import views.ImageDrawer;
 
+import java.util.Iterator;
+
 /**
  * Created by Ha San~ on 8/6/2016.
  */

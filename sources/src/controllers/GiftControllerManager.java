@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -23,6 +24,8 @@ public class GiftControllerManager extends ControllerManager {
         }
     }
     public void reset(){
+
+
         singleControllerVector.setSize(0);
     }
 }
