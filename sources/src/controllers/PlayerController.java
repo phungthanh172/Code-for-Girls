@@ -38,6 +38,7 @@ public class PlayerController extends SingleController
     private PlayerStatus playerStatus;
     private ImagePlayerStatus imagePlayerStatus;
     private int countScore;
+    private int countDie;
 
     public PlayerController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
@@ -161,6 +162,14 @@ public class PlayerController extends SingleController
             countScore = 0;
             increaseScore();
         }
+        if (!gameObject.isAlive()) {
+
+            countDie++;
+            die();
+            if (countDie >= 50) {
+                gameSceneListener.changeGameScene(new GameOverGameScene(), false);
+            }
+        }
 
 //        if (gameObject.isAlive()) {
 //            this.gameVector.dx = 0;
@@ -232,7 +241,7 @@ public class PlayerController extends SingleController
 
     }
     public boolean checkFallDeep(){
-    if(getGameObject().getY() > 480) return true;
+    if(getGameObject().getY() > 420) return true;
         return false;
     }
 
@@ -265,5 +274,12 @@ public class PlayerController extends SingleController
         instance = new PlayerController(
                 new Player(150,350,0),
                 new AnimationDrawer(Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)));
+    }
+    private void die() {
+        AnimationDrawer animationDrawer = new AnimationDrawer(
+                Utils.loadFromSprite("resources/dead_final.png", true, 160, 160, 1)
+        );
+        gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, ((GameObjectWithHp) (gameObject)).getHp(), ((Player)(gameObject)).getScore());
+        gameDrawer = animationDrawer;
     }
 }

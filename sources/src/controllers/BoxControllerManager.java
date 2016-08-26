@@ -19,7 +19,7 @@ public class BoxControllerManager extends ControllerManager {
     @Override
     public void run() {
         super.run();
-        if(count % 500 == 0) {
+        if(count % 200 == 100) {
             BoxController boxController = new BoxController(
                     new Box(720, 300), new ImageDrawer("brickblock")
             );
