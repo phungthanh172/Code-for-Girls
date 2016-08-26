@@ -25,6 +25,7 @@ public class PlayGameScene implements GameScene,MouseListener {
 
     public PlayGameScene() {
         reset();
+        Utils.playSound("resources/music.wav", true);
     }
 
 
@@ -63,7 +64,7 @@ public class PlayGameScene implements GameScene,MouseListener {
     private void healthBarDraw(Graphics g) {
         GameObject gameObject = PlayerController.instance.getGameObject();
         float health = ((GameObjectWithHp) gameObject).getHp();
-        float maxHealth = ((GameObjectWithHp) gameObject).getMaxHP();
+        float maxHealth = 50;
         float healthScale = health / maxHealth;
         Color healthBarColor = Color.green;
         int healthBarX = 50;

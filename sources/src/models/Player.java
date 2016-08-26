@@ -20,6 +20,7 @@ public class Player extends GameObjectWithHp{
     private int score;
     public Player(int x, int y, int width, int height, int hp, int score) {
         super(x, y, width, height, hp);
+        this.score = score;
     }
     public Player(int x, int y, int score) {
         super(x, y, DEFAULT_RUN_WIDTH, DEFAULT_RUN_HEIGHT, HP_DEFAULT);

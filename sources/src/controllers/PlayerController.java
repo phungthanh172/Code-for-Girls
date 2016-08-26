@@ -79,8 +79,9 @@ public class PlayerController extends SingleController
                             Utils.loadFromSprite("resources/down_final.png", true, 120, 120, 1), false, true
                             , 14);
                     gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.SLIDE, ((GameObjectWithHp) (gameObject)).getHp(), ((Player) (gameObject)).getScore());
+                    imagePlayerStatus = ImagePlayerStatus.SLIDE;
                 }
-                imagePlayerStatus = ImagePlayerStatus.SLIDE;
+
                 break;
             case KeyEvent.VK_LEFT:
                 this.gameInput.keyLeft = true;
@@ -115,8 +116,9 @@ public class PlayerController extends SingleController
                             Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
                     );
                     gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.RUN, ((GameObjectWithHp) (gameObject)).getHp(), ((Player)(gameObject)).getScore());
+                    imagePlayerStatus = ImagePlayerStatus.RUN;
                 }
-                imagePlayerStatus = ImagePlayerStatus.RUN;
+
                 break;
 
             case KeyEvent.VK_LEFT:
@@ -210,6 +212,7 @@ public class PlayerController extends SingleController
                 playerStatus = PlayerStatus.JUMPING;
                 setDefaultGrafitySpeed();
                 maxHighJump = floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE;
+                Utils.playSound("resources/jump.wav", false);
                 // System.out.println("JUMP");
             }
         }
