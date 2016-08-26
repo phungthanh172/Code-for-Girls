@@ -281,7 +281,9 @@ public class PlayerController extends SingleController
     public void decreaseHP(int amount) {
         ((GameObjectWithHp)gameObject).decreaseHP(amount);
     }
-
+    public void increaseHP(int amount){
+        ((GameObjectWithHp)gameObject).increaseHP(amount);
+    }
     public void increaseScore() {
         ((Player) gameObject).increaseScore();
     }
