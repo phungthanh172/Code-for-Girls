@@ -82,4 +82,7 @@ public class GameControllerManager implements BaseController {
     }
 
     public static final GameControllerManager instance = new GameControllerManager();
+    public void reset(){
+        controllerManagerVector.setSize(0);
+    }
 }
