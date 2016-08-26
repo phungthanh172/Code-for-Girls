@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Hau on 22/08/2016.
  */
-public class PlayGameScene implements GameScene, MouseListener {
+public class PlayGameScene implements GameScene,MouseListener {
     private Background backOne;
     private Background backTwo;
     private Image gameOver;
@@ -26,6 +26,7 @@ public class PlayGameScene implements GameScene, MouseListener {
 
     public PlayGameScene() {
         reset();
+<<<<<<< HEAD
     }
     private void reset(){
         backOne = new Background(0, 0);
@@ -35,6 +36,9 @@ public class PlayGameScene implements GameScene, MouseListener {
         FloorControllerManager.instance.reset();
         CollsionPool.instance.reset();
         CollsionPool.instance.add(PlayerController.instance);
+=======
+        Utils.playSound("resources/music.wav", true);
+>>>>>>> ea1b5f6365dbe5cf40727422d1fbc88a4277b61a
     }
 
 
@@ -47,12 +51,25 @@ public class PlayGameScene implements GameScene, MouseListener {
         buffer.drawImage(background, backTwo.getX(), backTwo.getY(), null);
         healthBarDraw(buffer);
         scoreDraw(buffer);
-        PlayerController.instance.draw(buffer);
-        BoxControllerManager.instance.draw(buffer);
         FloorControllerManager.instance.draw(buffer);
+<<<<<<< HEAD
+=======
+        BoxControllerManager.instance.draw(buffer);
+        PlayerController.instance.draw(buffer);
+
+>>>>>>> ea1b5f6365dbe5cf40727422d1fbc88a4277b61a
         graphics.drawImage(back, 0, 0, null);
     }
-
+    private void reset(){
+        backOne = new Background(0, 0);
+        backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
+        background = Utils.loadImage("Background2");
+        PlayerController.instance.reset();
+        FloorControllerManager.instance.reset();
+        BoxControllerManager.instance.reset();
+        CollsionPool.instance.reset();
+        CollsionPool.instance.add(PlayerController.instance);
+    }
     private void scoreDraw(Graphics g) {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);
         g.setFont(font);
@@ -60,11 +77,10 @@ public class PlayGameScene implements GameScene, MouseListener {
          gameOver  = Utils.loadImage("GameOver");
          g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
     }
-
     private void healthBarDraw(Graphics g) {
         GameObject gameObject = PlayerController.instance.getGameObject();
         float health = ((GameObjectWithHp) gameObject).getHp();
-        float maxHealth = ((GameObjectWithHp) gameObject).getMaxHP();
+        float maxHealth = 50;
         float healthScale = health / maxHealth;
         Color healthBarColor = Color.green;
         int healthBarX = 50;
@@ -95,38 +111,38 @@ public class PlayGameScene implements GameScene, MouseListener {
     }
 
     @Override
-    public MouseListener getMouseListener() {
-        return null;
-    }
-
-    @Override
     public void setGameSceneListener(GameSceneListener gameSceneListener) {
         this.gameSceneListener = gameSceneListener;
         PlayerController.instance.setGameSceneListener(this.gameSceneListener);
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public MouseListener getMouseListener() {
+        return this;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent mouseEvent) {
 
     }
 }

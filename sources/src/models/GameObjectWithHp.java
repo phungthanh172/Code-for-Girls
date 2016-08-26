@@ -31,7 +31,7 @@ public class GameObjectWithHp extends GameObject {
     public void decreaseHP (int amount)
     {
         this.hp -= amount;
-        if(this.hp < 0) {
+        if(this.hp <= 0) {
             destroy();
         }
     }

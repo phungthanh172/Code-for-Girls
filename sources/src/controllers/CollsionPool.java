@@ -55,4 +55,7 @@ public class CollsionPool implements BaseController {
     }
 
     public static final CollsionPool instance = new CollsionPool();
+    public void reset(){
+        colliableVector.clear();
+    }
 }
