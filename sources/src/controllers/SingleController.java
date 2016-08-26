@@ -11,6 +11,7 @@ import java.awt.*;
  */
 public class SingleController implements BaseController {
 
+    public static boolean speedChange;
     protected GameObject gameObject;
     protected GameDrawer gameDrawer;
     protected GameVector gameVector;
@@ -19,6 +20,11 @@ public class SingleController implements BaseController {
         this.gameObject = gameObject;
         this.gameDrawer = gameDrawer;
         this.gameVector = new GameVector();
+        if (speedChange) {
+            gameVector.dx = -4;
+        } else {
+            gameVector.dx = -2;
+        }
     }
 
     public GameObject getGameObject() {
@@ -38,5 +44,13 @@ public class SingleController implements BaseController {
     public void run() {
         gameObject.move(this.gameVector);
         gameDrawer.run();
+    }
+
+    public void increaseSpeed() {
+        gameVector.increaseSpeed();
+    }
+
+    public void decreaseSpeed() {
+        gameVector.decreaseSpeed();
     }
 }

@@ -43,6 +43,10 @@ public class GameSetting {
 
     private static GameSetting instance = null;
 
+    public int toSeconds(int countThread) {
+        return (countThread * THREAD_DELAY);
+    }
+
     public static GameSetting getInstance() {
         if (instance == null) {
             instance = new GameSetting(WIDTH_DEFAULT, HEIGHT_DEFAUT, THREAD_DELAY);

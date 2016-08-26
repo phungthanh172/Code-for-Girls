@@ -8,11 +8,10 @@ import views.GameDrawer;
  * Created by Ha San~ on 8/27/2016.
  */
 public class HealthController extends SingleController implements Colliable {
-    public static final int SPEED = 2;
     public HealthController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
-        this.gameVector.dx = -SPEED;
         CollsionPool.instance.add(this);
+        System.out.println(gameVector.dx);
     }
 
     @Override

@@ -170,6 +170,7 @@ public class PlayerController extends SingleController
 
 
         //End
+        gameVector.dx = 0;
         count++;
         countScore++;
         if (countScore >= 10) {

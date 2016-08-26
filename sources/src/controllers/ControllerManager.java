@@ -1,5 +1,7 @@
 package controllers;
 
+import models.GameSetting;
+
 import java.awt.*;
 import java.util.Iterator;
 import java.util.Vector;
@@ -10,6 +12,8 @@ import java.util.Vector;
 public class ControllerManager implements BaseController {
 
     protected Vector<SingleController> singleControllerVector;
+    private boolean point;
+    private int count;
 
     public ControllerManager() {
         singleControllerVector = new Vector<SingleController>();
@@ -24,14 +28,15 @@ public class ControllerManager implements BaseController {
         synchronized (this.singleControllerVector) {
             Iterator<SingleController> singleControllerIterator =
                     this.singleControllerVector.iterator();
-            while(singleControllerIterator.hasNext()) {
+            while (singleControllerIterator.hasNext()) {
                 SingleController singleController = singleControllerIterator.next();
-                if(singleController.getGameObject().isAlive()) {
+                if (singleController.getGameObject().isAlive()) {
                     singleController.draw(g);
                 }
             }
         }
     }
+
     public int size() {
 
         return singleControllerVector.size();
@@ -39,17 +44,55 @@ public class ControllerManager implements BaseController {
 
     @Override
     public void run() {
+        if (point) {
+            count++;
+        }
+        if (GameSetting.getInstance().toSeconds(count) >= 5000) {
+            count = 0;
+            System.out.println("TANG");
+            decreaseSpeed();
+            SingleController.speedChange = false;
+        }
         synchronized (this.singleControllerVector) {
             Iterator<SingleController> singleControllerIterator =
                     this.singleControllerVector.iterator();
-            while(singleControllerIterator.hasNext()) {
+            while (singleControllerIterator.hasNext()) {
                 SingleController singleController = singleControllerIterator.next();
-                if(!singleController.getGameObject().isAlive()) {
+                if (!singleController.getGameObject().isAlive()) {
                     singleControllerIterator.remove();
                 } else {
                     singleController.run();
                 }
             }
+        }
+    }
+
+    void increaseSpeed() {
+        synchronized (this.singleControllerVector) {
+            Iterator<SingleController> singleControllerIterator =
+                    this.singleControllerVector.iterator();
+            while (singleControllerIterator.hasNext()) {
+                SingleController singleController = singleControllerIterator.next();
+                if (singleController.getGameObject().isAlive()) {
+                    singleController.increaseSpeed();
+//                    singleController
+                }
+            }
+            point = true;
+        }
+    }
+
+    void decreaseSpeed() {
+        synchronized (this.singleControllerVector) {
+            Iterator<SingleController> singleControllerIterator =
+                    this.singleControllerVector.iterator();
+            while (singleControllerIterator.hasNext()) {
+                SingleController singleController = singleControllerIterator.next();
+                if (singleController.getGameObject().isAlive()) {
+                    singleController.decreaseSpeed();
+                }
+            }
+            point = false;
         }
     }
 }
