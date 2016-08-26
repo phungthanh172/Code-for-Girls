@@ -29,6 +29,7 @@ public class MenuGameScene implements GameScene, KeyListener, MouseListener {
         playButton = new Rectangle(GameSetting.getInstance().getScreenWidth() / 4 + 70, 200, WIDTH_BUTTON, HEIGHT_BUTTON);
         optionButton = new Rectangle(GameSetting.getInstance().getScreenWidth() / 4 + 70, 300, WIDTH_BUTTON, HEIGHT_BUTTON);
         quitButton = new Rectangle(GameSetting.getInstance().getScreenWidth() / 4 + 70, 400, WIDTH_BUTTON, HEIGHT_BUTTON);
+
     }
 
     @Override
@@ -87,6 +88,7 @@ public class MenuGameScene implements GameScene, KeyListener, MouseListener {
                         "%s : gameSceneListener is not set",
                         TAG
                 ));
+
             }
         }
     }

@@ -309,5 +309,6 @@ public class PlayerController extends SingleController
         gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, 0, ((Player)(gameObject)).getScore());
         gameDrawer = animationDrawer;
         imagePlayerStatus = ImagePlayerStatus.DEAD;
+
     }
 }
