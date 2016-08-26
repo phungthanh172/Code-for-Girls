@@ -27,4 +27,7 @@ public class BoxControllerManager extends ControllerManager {
         }
         count++;
     }
+    public void reset(){
+        this.singleControllerVector.setSize(0);
+    }
 }

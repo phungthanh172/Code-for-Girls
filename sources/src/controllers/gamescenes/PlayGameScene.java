@@ -52,6 +52,7 @@ public class PlayGameScene implements GameScene,MouseListener {
         background = Utils.loadImage("Background2");
         PlayerController.instance.reset();
         FloorControllerManager.instance.reset();
+        BoxControllerManager.instance.reset();
         CollsionPool.instance.reset();
         CollsionPool.instance.add(PlayerController.instance);
     }
