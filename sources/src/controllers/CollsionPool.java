@@ -21,7 +21,9 @@ public class CollsionPool implements BaseController {
         this.colliableVector.add(colliable);
     }
 
-
+    public void reset(){
+        colliableVector.clear();
+    }
     @Override
     public void run() {
         for(int i = 0; i < colliableVector.size() - 1; i ++) {

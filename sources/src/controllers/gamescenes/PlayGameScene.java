@@ -18,17 +18,24 @@ import java.awt.image.BufferedImage;
 public class PlayGameScene implements GameScene, MouseListener {
     private Background backOne;
     private Background backTwo;
+    private Image gameOver;
     private BufferedImage back;
     private Image background;
     GameSceneListener gameSceneListener;
 
 
     public PlayGameScene() {
+        reset();
+    }
+    private void reset(){
         backOne = new Background(0, 0);
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
-        background = Utils.loadImage("Background2");
+        background = Utils.loadImage("Backgroundcity");
+        PlayerController.instance.reset();
+        FloorControllerManager.instance.reset();
+        CollsionPool.instance.reset();
+        CollsionPool.instance.add(PlayerController.instance);
     }
-
 
 
     public void paint(Graphics graphics) {
@@ -36,7 +43,6 @@ public class PlayGameScene implements GameScene, MouseListener {
         back = new BufferedImage(GameSetting.getInstance().getScreenWidth(),
                 GameSetting.getInstance().getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics buffer = back.getGraphics();
-
         buffer.drawImage(background, backOne.getX(), backOne.getY(), null);
         buffer.drawImage(background, backTwo.getX(), backTwo.getY(), null);
         healthBarDraw(buffer);
@@ -44,7 +50,6 @@ public class PlayGameScene implements GameScene, MouseListener {
         PlayerController.instance.draw(buffer);
         BoxControllerManager.instance.draw(buffer);
         FloorControllerManager.instance.draw(buffer);
-
         graphics.drawImage(back, 0, 0, null);
     }
 
@@ -52,7 +57,8 @@ public class PlayGameScene implements GameScene, MouseListener {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);
         g.setFont(font);
         g.setColor(Color.BLACK);
-        g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
+         gameOver  = Utils.loadImage("GameOver");
+         g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
     }
 
     private void healthBarDraw(Graphics g) {

@@ -227,13 +227,17 @@ public class PlayerController extends SingleController
         return false;
     }
 
-    public final static PlayerController instance = new PlayerController(
+    public static PlayerController instance = new PlayerController(
             new Player(150, 350),
             new AnimationDrawer(
                     Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
             )
     );
-
+    public static void reset(){
+                instance = new PlayerController(
+                new Player(200,350),
+                new AnimationDrawer(Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)));
+    }
     @Override
     public void onCollide(Colliable colliable) {
 

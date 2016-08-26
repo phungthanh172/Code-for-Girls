@@ -19,15 +19,15 @@ public class GameOverGameScene implements GameScene, KeyListener, MouseListener 
     private GameSceneListener gameSceneListener;
 
     public GameOverGameScene() {
-        backgroundImage = Utils.loadImage("brickblock");
+        backgroundImage = Utils.loadImage("GameOver");
     }
 
     @Override
     public void draw(Graphics g) {
-//        g.drawImage(backgroundImage, 0, 0, GameSetting.getInstance().getScreenWidth(),
-//                GameSetting.getInstance().getScreenHeight(), null);
+        g.drawImage(backgroundImage, 0, 0, GameSetting.getInstance().getScreenWidth(),
+                GameSetting.getInstance().getScreenHeight(), null);
         int x = GameSetting.getInstance().getScreenWidth() / 4 + 120;
-        int y = GameSetting.getInstance().getScreenHeight() / 2;
+        int y = GameSetting.getInstance().getScreenHeight() -150;
         Font font = new Font("arial", Font.TYPE1_FONT, 50);
         g.setFont(font);
         g.setColor(Color.BLACK);
