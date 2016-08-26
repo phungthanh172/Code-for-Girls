@@ -42,12 +42,22 @@ public class FloorControllerManager extends ControllerManager {
             switch (floorState){
                 case LONG_HIGH:
                     this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 45), 420, floorState) , new ImageDrawer("Land2")
+                            new Floor((int)(getXLastFloor() + 45), 400, floorState) , new ImageDrawer("Land2")
                     ));
                     break;
                 case SHORT_HIGH:
                     this.add(new FloorController(
                             new Floor((int)(getXLastFloor() + 45), 400, floorState) , new ImageDrawer("Land2_short")
+                    ));
+                    break;
+                case SHORT_LOW:
+                    this.add(new FloorController(
+                            new Floor((int)(getXLastFloor() + 45), 420, floorState) , new ImageDrawer("Land2_short")
+                    ));
+                    break;
+                case LONG_LOW:
+                    this.add(new FloorController(
+                            new Floor((int)(getXLastFloor() + 45), 420, floorState) , new ImageDrawer("Land2")
                     ));
                     break;
             }
@@ -70,15 +80,35 @@ public class FloorControllerManager extends ControllerManager {
         }
         return 550;
     }
+    public Floor getFloorValue(float xObject) {
+        // TODO: CREATE FUNCTION
+        //ENTER code here
+
+        Iterator<SingleController> singleControllerIterator =
+                singleControllerVector.iterator();
+        while (singleControllerIterator.hasNext()) {
+            SingleController singleController = singleControllerIterator.next();
+            float bounderLeft = singleController.getGameObject().getX();
+            float bounderRight = bounderLeft + singleController.getGameObject().getWidth();
+            if (bounderLeft < xObject && bounderRight > xObject) {
+                return (Floor) singleController.getGameObject();
+            }
+        }
+        return null;
+    }
     public float getXLastFloor() {
         GameObject gameObject = singleControllerVector.lastElement().getGameObject();
         return gameObject.getX() + gameObject.getWidth();
     }
     public FloorState getRandomFloorState() {
         Random r = new Random();
-        int i = r.nextInt(5);
-        if(i > 3) {
+        int i = r.nextInt(9);
+        if(i > 7) {
             return FloorState.SHORT_HIGH;
+        } else if(i > 5){
+            return FloorState.LONG_HIGH;
+        } else if(i > 3) {
+            return FloorState.LONG_LOW;
         } else {
             return FloorState.LONG_HIGH;
         }

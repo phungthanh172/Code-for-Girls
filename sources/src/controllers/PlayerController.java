@@ -192,15 +192,6 @@ public class PlayerController extends SingleController
             return;
         }
 
-//        if (gameObject.isAlive()) {
-//            this.gameVector.dx = 0;
-//            if (gameInput.keyRight) {
-//                speedX = 1;
-//            }
-//            if (gameInput.keyLeft) {
-//                speedX = -1;
-//            }
-//        }
         if(gameObject.isAlive() && gameInput.keyDown){
 
         }

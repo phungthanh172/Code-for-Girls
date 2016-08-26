@@ -8,8 +8,8 @@ import controllers.ImagePlayerStatus;
 public class Player extends GameObjectWithHp{
     private static final int DEFAULT_RUN_WIDTH = 45;
     private static final int DEFAULT_RUN_HEIGHT = 75;
-    private static final int DEFAULT_SLIDE_WIDTH = 72;
-    private static final int DEFAULT_SLIDE_HEIGHT = 72;
+    private static final int DEFAULT_SLIDE_WIDTH = 70;
+    private static final int DEFAULT_SLIDE_HEIGHT = 70;
     private static final int DEFAULT_DEAD_WIDTH = 75;
     private static final int DEFAULT_DEAD_HEIGHT = 75;
     private static final int HP_DEFAULT = 50;
