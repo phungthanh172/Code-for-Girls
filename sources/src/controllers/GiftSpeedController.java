@@ -10,11 +10,9 @@ import views.ImageDrawer;
  * Created by Dell latitude E6520 on 8/27/2016.
  */
 public class GiftSpeedController extends SingleController implements Colliable {
-    public static final int SPEED = 2;
 
     public GiftSpeedController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
-        this.gameVector.dx = -SPEED;
         CollsionPool.instance.add(this);
     }
 
@@ -22,7 +20,11 @@ public class GiftSpeedController extends SingleController implements Colliable {
     public void onCollide(Colliable colliable) {
         if(colliable instanceof PlayerController) {
             this.getGameObject().destroy();
-            GameControllerManager.instance.increaseSpeed();
+//            GameControllerManager.instance.increaseSpeed();
+            FloorControllerManager.instance.increaseSpeed();
+            BoxControllerManager.instance.increaseSpeed();
+            GiftControllerManager.instance.increaseSpeed();
+            SingleController.speedChange = true;
             Utils.playSound("resources/coliable1.wav", false);
         }
     }

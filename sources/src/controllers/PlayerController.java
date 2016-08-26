@@ -42,6 +42,7 @@ public class PlayerController extends SingleController
 
     public PlayerController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
+
     }
 
     public GameSceneListener getGameSceneListener() {
@@ -158,7 +159,7 @@ public class PlayerController extends SingleController
     }
     @Override
     public void run() {
-
+        gameVector.dx = 0;
         // TODO when change Image STT GameDraw and GameObject will be change
         //  Call function int getFloorValue(GameObject) Creat function in FloorController.instance
         // Enter code here

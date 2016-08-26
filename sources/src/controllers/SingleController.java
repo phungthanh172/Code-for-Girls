@@ -14,11 +14,17 @@ public class SingleController implements BaseController {
     protected GameObject gameObject;
     protected GameDrawer gameDrawer;
     protected GameVector gameVector;
+    protected static boolean speedChange;
 
     public SingleController(GameObject gameObject, GameDrawer gameDrawer) {
         this.gameObject = gameObject;
         this.gameDrawer = gameDrawer;
         this.gameVector = new GameVector();
+        if (speedChange) {
+            gameVector.dx = -4;
+        } else {
+            gameVector.dx = -2;
+        }
     }
 
     public GameObject getGameObject() {

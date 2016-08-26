@@ -38,14 +38,15 @@ public class GameControllerManager implements BaseController {
 
     @Override
     public void run() {
+        synchronized (this.controllerManagerVector) {
         if (point) {
             count++;
         }
         if (GameSetting.getInstance().toSeconds(count) >= TIME_INCREASE_SPEED) {
             count = 0;
             decreaseSpeed();
+
         }
-        synchronized (this.controllerManagerVector) {
 
             Iterator<ControllerManager> controllerManagerIterator =
                     this.controllerManagerVector.iterator();

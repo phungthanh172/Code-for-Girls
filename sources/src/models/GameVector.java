@@ -4,7 +4,7 @@ package models;
  * Created by KhacThanh on 8/6/2016.
  */
 public class GameVector {
-    public float dx;
+    public  float dx;
     public float dy;
 
     public GameVector() {
@@ -17,10 +17,10 @@ public class GameVector {
     }
 
     public void increaseSpeed() {
-        this.dx *= 2;
+        this.dx = -4;
     }
 
     public void decreaseSpeed() {
-        this.dx /= 2;
+        this.dx = -2;
     }
 }

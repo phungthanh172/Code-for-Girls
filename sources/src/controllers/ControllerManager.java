@@ -1,5 +1,7 @@
 package controllers;
 
+import models.GameSetting;
+
 import java.awt.*;
 import java.util.Iterator;
 import java.util.Vector;
@@ -10,6 +12,8 @@ import java.util.Vector;
 public class ControllerManager implements BaseController {
 
     protected Vector<SingleController> singleControllerVector;
+    private int count;
+    private boolean point;
 
     public ControllerManager() {
         singleControllerVector = new Vector<SingleController>();
@@ -40,6 +44,15 @@ public class ControllerManager implements BaseController {
 
     @Override
     public void run() {
+        if (point) {
+            count++;
+        }
+        if (GameSetting.getInstance().toSeconds(count) >= 1000) {
+            count = 0;
+            System.out.println("TANG");
+            decreaseSpeed();
+            SingleController.speedChange = false;
+        }
         synchronized (this.singleControllerVector) {
             Iterator<SingleController> singleControllerIterator =
                     this.singleControllerVector.iterator();
@@ -62,8 +75,10 @@ public class ControllerManager implements BaseController {
                 SingleController singleController = singleControllerIterator.next();
                 if(singleController.getGameObject().isAlive()) {
                     singleController.increaseSpeed();
+//                    singleController
                 }
             }
+                    point = true;
         }
     }
 
@@ -77,6 +92,7 @@ public class ControllerManager implements BaseController {
                     singleController.decreaseSpeed();
                 }
             }
+                point = false;
         }
     }
 }

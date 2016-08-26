@@ -9,12 +9,8 @@ import views.GameDrawer;
  */
 public class BoxController extends SingleController implements Colliable {
 
-
-    public static final int SPEED = 2;
-
     public BoxController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
-        this.gameVector.dx = -SPEED;
         CollsionPool.instance.add(this);
     }
 
