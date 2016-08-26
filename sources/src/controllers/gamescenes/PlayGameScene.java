@@ -43,7 +43,8 @@ public class PlayGameScene implements GameScene,MouseListener {
         FloorControllerManager.instance.draw(buffer);
         BoxControllerManager.instance.draw(buffer);
         PlayerController.instance.draw(buffer);
-
+        HealthControllerManager.instance.draw(buffer);
+        GiftControllerManager.instance.draw(buffer);
         graphics.drawImage(back, 0, 0, null);
     }
     private void reset(){
@@ -51,9 +52,11 @@ public class PlayGameScene implements GameScene,MouseListener {
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
         background = Utils.loadImage("Background2");
         PlayerController.instance.reset();
+        HealthControllerManager.instance.reset();
         FloorControllerManager.instance.reset();
         BoxControllerManager.instance.reset();
         CollsionPool.instance.reset();
+        GiftControllerManager.instance.reset();
         CollsionPool.instance.add(PlayerController.instance);
     }
     private void scoreDraw(Graphics g) {
@@ -83,6 +86,8 @@ public class PlayGameScene implements GameScene,MouseListener {
         BoxControllerManager.instance.run();
         FloorControllerManager.instance.run();
         CollsionPool.instance.run();
+        GiftControllerManager.instance.run();
+        HealthControllerManager.instance.run();
     }
 
     @Override
