@@ -13,6 +13,7 @@ public class ControllerManager implements BaseController {
 
     public ControllerManager() {
         singleControllerVector = new Vector<SingleController>();
+        GameControllerManager.instance.add(this);
     }
 
     public void add(SingleController singleController) {
@@ -48,6 +49,32 @@ public class ControllerManager implements BaseController {
                     singleControllerIterator.remove();
                 } else {
                     singleController.run();
+                }
+            }
+        }
+    }
+
+    void increaseSpeed() {
+        synchronized (this.singleControllerVector) {
+            Iterator<SingleController> singleControllerIterator =
+                    this.singleControllerVector.iterator();
+            while(singleControllerIterator.hasNext()) {
+                SingleController singleController = singleControllerIterator.next();
+                if(singleController.getGameObject().isAlive()) {
+                    singleController.increaseSpeed();
+                }
+            }
+        }
+    }
+
+    void decreaseSpeed() {
+        synchronized (this.singleControllerVector) {
+            Iterator<SingleController> singleControllerIterator =
+                    this.singleControllerVector.iterator();
+            while(singleControllerIterator.hasNext()) {
+                SingleController singleController = singleControllerIterator.next();
+                if(singleController.getGameObject().isAlive()) {
+                    singleController.decreaseSpeed();
                 }
             }
         }

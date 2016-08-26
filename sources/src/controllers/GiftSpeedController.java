@@ -22,7 +22,7 @@ public class GiftSpeedController extends SingleController implements Colliable {
     public void onCollide(Colliable colliable) {
         if(colliable instanceof PlayerController) {
             this.getGameObject().destroy();
-//            PlayerController.instance.decreaseHP(20);
+            GameControllerManager.instance.increaseSpeed();
             Utils.playSound("resources/coliable1.wav", false);
         }
     }

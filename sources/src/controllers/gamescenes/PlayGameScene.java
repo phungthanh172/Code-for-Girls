@@ -40,10 +40,11 @@ public class PlayGameScene implements GameScene,MouseListener {
         buffer.drawImage(background, backTwo.getX(), backTwo.getY(), null);
         healthBarDraw(buffer);
         scoreDraw(buffer);
-        FloorControllerManager.instance.draw(buffer);
-        BoxControllerManager.instance.draw(buffer);
         PlayerController.instance.draw(buffer);
+//        FloorControllerManager.instance.draw(buffer);
+//        BoxControllerManager.instance.draw(buffer);
         GiftControllerManager.instance.draw(buffer);
+        GameControllerManager.instance.draw(buffer);
 
         graphics.drawImage(back, 0, 0, null);
     }
@@ -81,10 +82,11 @@ public class PlayGameScene implements GameScene,MouseListener {
         backOne.update();
         backTwo.update();
         PlayerController.instance.run();
-        BoxControllerManager.instance.run();
-        FloorControllerManager.instance.run();
-        CollsionPool.instance.run();
+//        BoxControllerManager.instance.run();
+//        FloorControllerManager.instance.run();
         GiftControllerManager.instance.run();
+        GameControllerManager.instance.run();
+        CollsionPool.instance.run();
     }
 
     @Override

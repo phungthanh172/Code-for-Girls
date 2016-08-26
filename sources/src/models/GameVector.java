@@ -16,4 +16,11 @@ public class GameVector {
         this.dy = dy;
     }
 
+    public void increaseSpeed() {
+        this.dx *= 2;
+    }
+
+    public void decreaseSpeed() {
+        this.dx /= 2;
+    }
 }

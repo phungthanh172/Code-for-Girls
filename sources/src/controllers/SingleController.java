@@ -40,5 +40,11 @@ public class SingleController implements BaseController {
         gameDrawer.run();
     }
 
+    public void increaseSpeed() {
+        gameVector.increaseSpeed();
+    }
 
+    public void decreaseSpeed() {
+        gameVector.decreaseSpeed();
+    }
 }

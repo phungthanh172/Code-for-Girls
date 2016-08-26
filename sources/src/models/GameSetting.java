@@ -41,6 +41,10 @@ public class GameSetting {
         this.threadDelay = threadDelay;
     }
 
+    public int toSeconds(int countThread) {
+        return (countThread * THREAD_DELAY);
+    }
+
     private static GameSetting instance = null;
 
     public static GameSetting getInstance() {
