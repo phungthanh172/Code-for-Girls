@@ -68,7 +68,7 @@ public class FloorControllerManager extends ControllerManager {
                 return singleController.getGameObject().getY();
             }
         }
-        return 500;
+        return 550;
     }
     public float getXLastFloor() {
         GameObject gameObject = singleControllerVector.lastElement().getGameObject();
@@ -85,10 +85,6 @@ public class FloorControllerManager extends ControllerManager {
 
     }
     public void reset(){
-<<<<<<< HEAD
-        this.getRandomFloorState();
-=======
         instance = new FloorControllerManager();
->>>>>>> ea1b5f6365dbe5cf40727422d1fbc88a4277b61a
     }
 }

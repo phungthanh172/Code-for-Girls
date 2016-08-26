@@ -141,8 +141,8 @@ public class PlayerController extends SingleController
         // End
     }
     private void setDefaultGrafitySpeed() {
-        fallingSpeed = 1f;
-        jumpingSpeed = 2f;
+        fallingSpeed = 1.5f;
+        jumpingSpeed = 1.5f;
     }
     void showmess(){
         for (int i = 0; i <20; i ++){
@@ -176,7 +176,7 @@ public class PlayerController extends SingleController
             countScore = 0;
             increaseScore();
         }
-        System.out.println(imagePlayerStatus);
+        //System.out.println(imagePlayerStatus);
         if(imagePlayerStatus == ImagePlayerStatus.DEAD){
             countDie++;
             System.out.println(countDie);
@@ -263,34 +263,25 @@ public class PlayerController extends SingleController
 
     }
     public boolean checkFallDeep(){
-    if(getGameObject().getY() > 420) return true;
+    if(getGameObject().getY() > 430) return true;
         return false;
     }
 
     public static PlayerController instance = new PlayerController(
-<<<<<<< HEAD
-            new Player(150, 350),
-=======
             new Player(150,350,0),
->>>>>>> ea1b5f6365dbe5cf40727422d1fbc88a4277b61a
             new AnimationDrawer(
                     Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
             )
     );
-    public static void reset(){
-                instance = new PlayerController(
-                new Player(200,350),
-                new AnimationDrawer(Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)));
-    }
+
     @Override
     public void onCollide(Colliable colliable) {
 
-//        if(colliable instanceof BoxController){
-//            colliable.getGameObject().destroy();
-//        }
-//        else if(colliable instanceof FloorController) {
-//            floor = (int)colliable.getGameObject().getY();
-//        }
+        if(colliable instanceof FloorController) {
+            if(CollsionPool.vaChamChet(this, colliable)){
+                this.gameVector.dx = -1;
+            }
+        }
     }
 
     public void decreaseHP(int amount) {

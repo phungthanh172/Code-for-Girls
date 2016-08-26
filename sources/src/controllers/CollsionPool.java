@@ -21,9 +21,7 @@ public class CollsionPool implements BaseController {
         this.colliableVector.add(colliable);
     }
 
-    public void reset(){
-        colliableVector.clear();
-    }
+
     @Override
     public void run() {
         for(int i = 0; i < colliableVector.size() - 1; i ++) {
@@ -53,7 +51,12 @@ public class CollsionPool implements BaseController {
     public void draw(Graphics g) {
 
     }
-
+    public static boolean vaChamChet(Colliable colliableObject, Colliable colliableFloor){
+        GameObject Object = colliableObject.getGameObject();
+        GameObject Floor = colliableFloor.getGameObject();
+        if(Object.getBottom() - Floor.getY() >= 20) return true;
+        return false;
+    }
     public static final CollsionPool instance = new CollsionPool();
     public void reset(){
         colliableVector.clear();
