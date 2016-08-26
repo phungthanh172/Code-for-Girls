@@ -10,6 +10,6 @@ import java.awt.event.MouseListener;
 public interface GameScene extends Runnable {
     KeyListener getKeyListener();
     void draw(Graphics graphics);
-    MouseListener getMouseListener();
     void setGameSceneListener(GameSceneListener gameSceneListener);
+    public MouseListener getMouseListener();
 }

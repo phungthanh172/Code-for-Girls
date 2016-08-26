@@ -123,14 +123,13 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener{
     public void changeGameScene(GameScene gameScene, boolean addToStack) {
         if(currentGameScene != null && addToStack) {
             this.removeKeyListener(currentGameScene.getKeyListener());
-//            this.removeMouseListener(currentGameScene.getMouseListener());
             this.stack.push(currentGameScene);
+            this.removeMouseListener(currentGameScene.getMouseListener());
         }
         currentGameScene = gameScene;
         currentGameScene.setGameSceneListener(this);
         this.addKeyListener(currentGameScene.getKeyListener());
         this.addMouseListener(currentGameScene.getMouseListener());
-
     }
 
     @Override

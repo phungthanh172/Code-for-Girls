@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Hau on 22/08/2016.
  */
-public class PlayGameScene implements GameScene, MouseListener {
+public class PlayGameScene implements GameScene,MouseListener {
     private Background backOne;
     private Background backTwo;
     private BufferedImage back;
@@ -24,9 +24,7 @@ public class PlayGameScene implements GameScene, MouseListener {
 
 
     public PlayGameScene() {
-        backOne = new Background(0, 0);
-        backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
-        background = Utils.loadImage("Background2");
+        reset();
     }
 
 
@@ -47,14 +45,21 @@ public class PlayGameScene implements GameScene, MouseListener {
 
         graphics.drawImage(back, 0, 0, null);
     }
-
+    private void reset(){
+        backOne = new Background(0, 0);
+        backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
+        background = Utils.loadImage("Background2");
+        PlayerController.instance.reset();
+        FloorControllerManager.instance.reset();
+        CollsionPool.instance.reset();
+        CollsionPool.instance.add(PlayerController.instance);
+    }
     private void scoreDraw(Graphics g) {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);
         g.setFont(font);
         g.setColor(Color.BLACK);
         g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
     }
-
     private void healthBarDraw(Graphics g) {
         GameObject gameObject = PlayerController.instance.getGameObject();
         float health = ((GameObjectWithHp) gameObject).getHp();
@@ -89,38 +94,38 @@ public class PlayGameScene implements GameScene, MouseListener {
     }
 
     @Override
-    public MouseListener getMouseListener() {
-        return null;
-    }
-
-    @Override
     public void setGameSceneListener(GameSceneListener gameSceneListener) {
         this.gameSceneListener = gameSceneListener;
         PlayerController.instance.setGameSceneListener(this.gameSceneListener);
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public MouseListener getMouseListener() {
+        return this;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent mouseEvent) {
 
     }
 }

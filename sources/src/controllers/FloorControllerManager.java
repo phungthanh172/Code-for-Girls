@@ -84,4 +84,7 @@ public class FloorControllerManager extends ControllerManager {
         }
 
     }
+    public void reset(){
+        this.getRandomFloorState();
+    }
 }
