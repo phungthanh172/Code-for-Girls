@@ -125,6 +125,10 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener{
             this.removeKeyListener(currentGameScene.getKeyListener());
             this.stack.push(currentGameScene);
             this.removeMouseListener(currentGameScene.getMouseListener());
+
+        }
+        if (currentGameScene != null && !addToStack) {
+            this.removeKeyListener(currentGameScene.getKeyListener());
         }
         currentGameScene = gameScene;
         currentGameScene.setGameSceneListener(this);
