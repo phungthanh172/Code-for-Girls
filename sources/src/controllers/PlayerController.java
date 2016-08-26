@@ -142,6 +142,18 @@ public class PlayerController extends SingleController
         fallingSpeed = 1f;
         jumpingSpeed = 2f;
     }
+    void showmess(){
+        for (int i = 0; i <20; i ++){
+            if(i==19){
+                gameSceneListener.changeGameScene(new GameOverGameScene(), false);
+            }
+        }
+//        countDie++;
+//        System.out.println(countDie);
+//        if (countDie >= 5) {
+//            gameSceneListener.changeGameScene(new GameOverGameScene(), false);
+//        }
+    }
     @Override
     public void run() {
 
@@ -162,13 +174,20 @@ public class PlayerController extends SingleController
             countScore = 0;
             increaseScore();
         }
-        if (!gameObject.isAlive()) {
-
+        System.out.println(imagePlayerStatus);
+        if(imagePlayerStatus == ImagePlayerStatus.DEAD){
             countDie++;
+            System.out.println(countDie);
+            if (countDie >= 40) {
+            gameSceneListener.changeGameScene(new GameOverGameScene(), false);
+        }
+
+        }
+        if (!gameObject.isAlive()) {
             die();
-            if (countDie >= 50) {
-                gameSceneListener.changeGameScene(new GameOverGameScene(), false);
-            }
+            //showmess();
+            //gameSceneListener.changeGameScene(new GameOverGameScene(), false);
+            return;
         }
 
 //        if (gameObject.isAlive()) {
@@ -279,7 +298,8 @@ public class PlayerController extends SingleController
         AnimationDrawer animationDrawer = new AnimationDrawer(
                 Utils.loadFromSprite("resources/dead_final.png", true, 160, 160, 1), false, true, 14
         );
-        gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, ((GameObjectWithHp) (gameObject)).getHp(), ((Player)(gameObject)).getScore());
+        gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, 0, ((Player)(gameObject)).getScore());
         gameDrawer = animationDrawer;
+        imagePlayerStatus = ImagePlayerStatus.DEAD;
     }
 }
