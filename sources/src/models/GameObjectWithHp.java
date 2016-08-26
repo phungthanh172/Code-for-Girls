@@ -28,6 +28,7 @@ public class GameObjectWithHp extends GameObject {
             this.hp = maxHP;
     }
 
+
     public void decreaseHP (int amount)
     {
         this.hp -= amount;

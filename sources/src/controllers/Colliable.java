@@ -8,4 +8,6 @@ import models.GameObject;
 public interface Colliable {
     GameObject getGameObject();
     void onCollide(Colliable colliable);
+
+
 }

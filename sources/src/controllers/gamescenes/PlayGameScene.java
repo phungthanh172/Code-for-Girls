@@ -43,6 +43,7 @@ public class PlayGameScene implements GameScene,MouseListener {
         FloorControllerManager.instance.draw(buffer);
         BoxControllerManager.instance.draw(buffer);
         PlayerController.instance.draw(buffer);
+        GiftControllerManager.instance.draw(buffer);
 
         graphics.drawImage(back, 0, 0, null);
     }
@@ -83,6 +84,7 @@ public class PlayGameScene implements GameScene,MouseListener {
         BoxControllerManager.instance.run();
         FloorControllerManager.instance.run();
         CollsionPool.instance.run();
+        GiftControllerManager.instance.run();
     }
 
     @Override
