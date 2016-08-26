@@ -21,7 +21,7 @@ public class PlayerController extends SingleController
 
     private GameInput gameInput;
     private static final int JUMP_SIZE = 70 ;
-    private static final int FLOOR_CHANGE = 13;
+    private static final int FLOOR_CHANGE = 15;
     private static final float GRAFITY = 0.1f;
     private float floor = 400;
     private boolean changeStatus;

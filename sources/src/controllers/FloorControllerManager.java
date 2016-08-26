@@ -42,12 +42,12 @@ public class FloorControllerManager extends ControllerManager {
             switch (floorState){
                 case LONG_HIGH:
                     this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 50), 420, floorState) , new ImageDrawer("Land2")
+                            new Floor((int)(getXLastFloor() + 45), 420, floorState) , new ImageDrawer("Land2")
                     ));
                     break;
                 case SHORT_HIGH:
                     this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 50), 400, floorState) , new ImageDrawer("Land2_short")
+                            new Floor((int)(getXLastFloor() + 45), 400, floorState) , new ImageDrawer("Land2_short")
                     ));
                     break;
             }
