@@ -20,13 +20,13 @@ public class PlayerController extends SingleController
         implements KeyListener, Colliable {
 
     private GameInput gameInput;
-    private static final int JUMP_SIZE = 80 ;
+    private static final int JUMP_SIZE = 70 ;
     private static final int FLOOR_CHANGE = 13;
-    private static final float GRAFITY = 0.12f;
+    private static final float GRAFITY = 0.1f;
     private float floor = 400;
     private boolean changeStatus;
     GameSceneListener gameSceneListener;
-
+    private float maxHighJump = 300;
     //COUNTER
     private int count;
 
@@ -141,8 +141,8 @@ public class PlayerController extends SingleController
         // End
     }
     private void setDefaultGrafitySpeed() {
-        fallingSpeed = 1.5f;
-        jumpingSpeed = 1.5f;
+        fallingSpeed = 3f;
+        jumpingSpeed = 4.5f;
     }
     void showmess(){
         for (int i = 0; i <20; i ++){
@@ -204,14 +204,17 @@ public class PlayerController extends SingleController
         if(gameObject.isAlive() && gameInput.keyDown){
 
         }
-        float maxHighJump = 300;
+
 
         // If Space and Standing then Jump and set maxHighJump
         if (gameInput.keySpace) {
+            System.out.println("Height : " + this.getGameObject().getHeight());
+            System.out.println("floor : " + floor);
+            System.out.println("maxHighJump : " + maxHighJump);
             if(playerStatus == PlayerStatus.STANDING) {
+                maxHighJump = floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE;
                 playerStatus = PlayerStatus.JUMPING;
                 setDefaultGrafitySpeed();
-                maxHighJump = floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE;
                 Utils.playSound("resources/jump.wav", false);
                 // System.out.println("JUMP");
             }
@@ -220,7 +223,7 @@ public class PlayerController extends SingleController
         // STATUS DOING
         switch (playerStatus) {
             case JUMPING:
-                jumpingSpeed += GRAFITY;
+                jumpingSpeed -= GRAFITY/3;
             this.gameVector.dy = (int)(-jumpingSpeed);
                 break;
             case FALLING:
@@ -277,11 +280,11 @@ public class PlayerController extends SingleController
     @Override
     public void onCollide(Colliable colliable) {
 
-        if(colliable instanceof FloorController) {
-            if(CollsionPool.vaChamChet(this, colliable)){
-                this.gameVector.dx = -1;
-            }
-        }
+//        if(colliable instanceof FloorController) {
+//            if(CollsionPool.vaChamChet(this, colliable)){
+//                this.gameVector.dx = -1;
+//            }
+//        }
     }
 
     public void decreaseHP(int amount) {
