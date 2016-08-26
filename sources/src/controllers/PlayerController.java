@@ -277,7 +277,7 @@ public class PlayerController extends SingleController
     }
     private void die() {
         AnimationDrawer animationDrawer = new AnimationDrawer(
-                Utils.loadFromSprite("resources/dead_final.png", true, 160, 160, 1)
+                Utils.loadFromSprite("resources/dead_final.png", true, 160, 160, 1), false, true, 14
         );
         gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, ((GameObjectWithHp) (gameObject)).getHp(), ((Player)(gameObject)).getScore());
         gameDrawer = animationDrawer;
