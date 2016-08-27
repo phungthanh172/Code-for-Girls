@@ -1,5 +1,7 @@
 package models;
 
+import controllers.SceneState;
+
 /**
  * Created by Hau on 22/08/2016.
  */
@@ -10,7 +12,7 @@ public class GameSetting {
     private int screenWidth;
     private int screenHeight;
     private int threadDelay;
-
+    public static SceneState sceneState;
     public GameSetting(int screenWidth, int screenHeight, int threadDelay) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;

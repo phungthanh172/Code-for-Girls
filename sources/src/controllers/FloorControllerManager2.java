@@ -10,22 +10,21 @@ import java.util.Random;
 /**
  * Created by Ha San~ on 8/6/2016.
  */
-public class FloorControllerManager extends ControllerManager {
-    public static FloorControllerManager instance = new FloorControllerManager();
-    public static FloorControllerManager instance2 = new FloorControllerManager();
+public class FloorControllerManager2 extends ControllerManager {
+    public static FloorControllerManager2 instance = new FloorControllerManager2();
     private int changeSize;
 
-    private FloorControllerManager() {
+    private FloorControllerManager2() {
         super();
         int x = 0;
         //changeSize = 380;
-      //  for (int i = 0; i < 1; i++) {
-            FloorController floorManager = new FloorController(
-                    new Floor(0, 400), new ImageDrawer("land2")
-            );
-       //    x += 700;
-            this.add(floorManager);
-       // }
+        //  for (int i = 0; i < 1; i++) {
+        FloorController floorManager = new FloorController(
+                new Floor(0, 400), new ImageDrawer("land3")
+        );
+        //    x += 700;
+        this.add(floorManager);
+        // }
     }
 
     @Override
@@ -37,31 +36,10 @@ public class FloorControllerManager extends ControllerManager {
 //                    new Floor(700, 450), new ImageDrawer("land2")
 //            ));
 //        }
-        if(getXLastFloor() < 700) {
-
-            FloorState floorState = getRandomFloorState();
-            switch (floorState){
-                case LONG_HIGH:
-                    this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 45), 400, floorState) , new ImageDrawer("Land2")
-                    ));
-                    break;
-                case SHORT_HIGH:
-                    this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 45), 400, floorState) , new ImageDrawer("Land2_short")
-                    ));
-                    break;
-                case SHORT_LOW:
-                    this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 45), 420, floorState) , new ImageDrawer("Land2_short")
-                    ));
-                    break;
-                case LONG_LOW:
-                    this.add(new FloorController(
-                            new Floor((int)(getXLastFloor() + 45), 420, floorState) , new ImageDrawer("Land2")
-                    ));
-                    break;
-            }
+        if(this.size() < 2) {
+            this.add(new FloorController(
+                    new Floor( (int)(getXLastFloor()) , 400), new ImageDrawer("land3")
+            ));
         }
     }
 
@@ -116,6 +94,6 @@ public class FloorControllerManager extends ControllerManager {
 
     }
     public void reset(){
-        instance = new FloorControllerManager();
+        instance = new FloorControllerManager2();
     }
 }

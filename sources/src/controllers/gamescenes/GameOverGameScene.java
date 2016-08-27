@@ -33,7 +33,7 @@ public class GameOverGameScene implements GameScene, KeyListener, MouseListener 
         g.setFont(font);
         g.setColor(Color.BLACK);
         g.drawString("Score" , x , y - 70);
-        g.drawString("" + ((Player) PlayerController.instance.getGameObject()).getScore(), x + 35, y);
+        g.drawString("" +( ((Player) PlayerController.instance.getGameObject()).getScore()+((Player) PlayerController.instance.getGameObject()).getCoin()*10 ), x + 35, y);
     }
 
     @Override

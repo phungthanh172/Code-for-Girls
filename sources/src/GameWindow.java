@@ -2,10 +2,7 @@ import controllers.PlayerController;
 import controllers.gamescenes.GameScene;
 import controllers.gamescenes.GameSceneListener;
 import controllers.gamescenes.MenuGameScene;
-import controllers.gamescenes.PlayGameScene;
 import models.GameSetting;
-
-import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
