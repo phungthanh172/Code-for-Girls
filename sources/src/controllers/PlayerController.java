@@ -1,8 +1,6 @@
 package controllers;
 
-import controllers.gamescenes.GameOverGameScene;
-import controllers.gamescenes.GameSceneListener;
-import controllers.gamescenes.PlayGameScene2;
+import controllers.gamescenes.*;
 import models.GameObject;
 import models.GameObjectWithHp;
 import models.Player;
@@ -19,7 +17,7 @@ import java.awt.event.KeyListener;
  */
 public class PlayerController extends SingleController
         implements KeyListener, Colliable {
-
+    //private static final String TAG = PlayerController.class.toString();
     private GameInput gameInput;
     private static final int JUMP_SIZE = 70 ;
     private static final int FLOOR_CHANGE = 15;
@@ -42,7 +40,9 @@ public class PlayerController extends SingleController
     private int countDie;
 
     public PlayerController(GameObject gameObject, GameDrawer gameDrawer) {
+
         super(gameObject, gameDrawer);
+        System.out.println("Player Contructor Public");
     }
 
     public GameSceneListener getGameSceneListener() {
@@ -60,6 +60,8 @@ public class PlayerController extends SingleController
         playerStatus = PlayerStatus.STANDING;
         imagePlayerStatus = ImagePlayerStatus.RUN;
         floor = 400;
+    //    System.out.println("Player Contructor Public" );
+
     }
 
     @Override
@@ -201,9 +203,9 @@ public class PlayerController extends SingleController
 
         // If Space and Standing then Jump and set maxHighJump
         if (gameInput.keySpace) {
-            System.out.println("Height : " + this.getGameObject().getHeight());
-            System.out.println("floor : " + floor);
-            System.out.println("maxHighJump : " + maxHighJump);
+//            System.out.println("Height : " + this.getGameObject().getHeight());
+//            System.out.println("floor : " + floor);
+//            System.out.println("maxHighJump : " + maxHighJump);
             if(playerStatus == PlayerStatus.STANDING) {
                 maxHighJump = floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE;
                 playerStatus = PlayerStatus.JUMPING;
@@ -279,7 +281,7 @@ public class PlayerController extends SingleController
 //            }
 //        }
         if(colliable instanceof HoleController){
-            gameSceneListener.changeGameScene(new PlayGameScene2(),false);
+            gameSceneListener.changeGameScene(new PlayGameScene3(false),false);
         }
     }
 

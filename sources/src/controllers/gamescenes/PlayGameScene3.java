@@ -1,7 +1,5 @@
 package controllers.gamescenes;
 
-import controllers.BoxControllerManager;
-import controllers.CollsionPool;
 import controllers.*;
 import models.*;
 import utils.Utils;
@@ -13,9 +11,9 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by Hau on 22/08/2016.
+ * Created by KhacThanh on 8/27/2016.
  */
-public class PlayGameScene implements GameScene,MouseListener {
+public class PlayGameScene3 implements GameScene,MouseListener {
     protected Background backOne;
     protected Background backTwo;
     protected BufferedImage back;
@@ -23,30 +21,26 @@ public class PlayGameScene implements GameScene,MouseListener {
     protected GameSceneListener gameSceneListener;
     private int count;
 
-    public PlayGameScene(){
+    public PlayGameScene3(){
         reset();
 
     }
-    public PlayGameScene(boolean resetPlayer) {
+    public PlayGameScene3(boolean resetPlayer) {
         if(resetPlayer){
-        reset();} else {
+            reset();} else {
             resetWithOutPlayer();
 
-        }        Utils.playSound("resources/music.wav", true);
+        }       // Utils.playSound("resources/music.wav", true);
     }
 
     protected void resetWithOutPlayer() {
         backOne = new Background(0, 0);
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
         background = Utils.loadImage("Background2");
-        //PlayerController.instance.reset();
-        HealthControllerManager.instance.reset();
-        FloorControllerManager.instance.reset();
-        BoxControllerManager.instance.reset();
+        System.out.println("dddddddddddddddddddd");
+        FloorControllerManager2.instance.reset();
+        CoinControllerManager.instance.reset();
         CollsionPool.instance.reset();
-        HoleControllerManager.instance.reset();
-        GiftControllerManager.instance.reset();
-        CollsionPool.instance.add(PlayerController.instance);
     }
 
 
@@ -71,20 +65,17 @@ public class PlayGameScene implements GameScene,MouseListener {
     protected void reset(){
         backOne = new Background(0, 0);
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
-        background = Utils.loadImage("Background2");
         PlayerController.instance.reset();
-        HealthControllerManager.instance.reset();
-        FloorControllerManager.instance.reset();
-        BoxControllerManager.instance.reset();
+        background = Utils.loadImage("Background2");
+        System.out.println("dddddddddddddddddddd");
+        FloorControllerManager2.instance.reset();
+        CoinControllerManager.instance.reset();
         CollsionPool.instance.reset();
-        HoleControllerManager.instance.reset();
-        GiftControllerManager.instance.reset();
-        CollsionPool.instance.add(PlayerController.instance);
     }
     protected void scoreDraw(Graphics g) {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);
         g.setFont(font);
-        g.setColor(Color.BLACK);
+        g.setColor(Color.red);
         g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
         g.drawString("Coin: " + ((Player)PlayerController.instance.getGameObject()).getCoin(), 450, 65);
     }
@@ -103,15 +94,18 @@ public class PlayGameScene implements GameScene,MouseListener {
     }
 
     public void run() {
+        count++;
+        if (GameSetting.getInstance().toSeconds(count) >= 5000) {
+            count = 0;
+            gameSceneListener.changeGameScene(new PlayGameScene(false), false);
+        }
+
         backOne.update();
         backTwo.update();
         PlayerController.instance.run();
-//        BoxControllerManager.instance.run();
-        FloorControllerManager.instance.run();
+        CoinControllerManager.instance.run();
         CollsionPool.instance.run();
-//        GiftControllerManager.instance.run();
-//        HealthControllerManager.instance.run();
-        HoleControllerManager.instance.run();
+        FloorControllerManager2.instance.run();
     }
 
     @Override

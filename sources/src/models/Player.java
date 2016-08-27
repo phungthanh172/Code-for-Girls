@@ -33,7 +33,7 @@ public class Player extends GameObjectWithHp{
     public Player(int x, int y, int width, int height, int hp, int score,int coin) {
         super(x, y, width, height, hp);
         this.score = score;
-        this.coin =coin;
+        this.coin = coin;
     }
     public Player(int x, int y, int score) {
         super(x, y, DEFAULT_RUN_WIDTH, DEFAULT_RUN_HEIGHT, HP_DEFAULT);
