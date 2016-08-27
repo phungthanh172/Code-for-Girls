@@ -19,7 +19,7 @@ public class HoleController extends SingleController implements Colliable{
     public void onCollide(Colliable colliable) {
         if(colliable instanceof PlayerController) {
             this.getGameObject().destroy();
-            PlayerController.instance.decreaseHP(20);
+          //  PlayerController.instance.decreaseHP(20);
             Utils.playSound("resources/coliable1.wav", false);
         }
 

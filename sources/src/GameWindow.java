@@ -2,7 +2,10 @@ import controllers.PlayerController;
 import controllers.gamescenes.GameScene;
 import controllers.gamescenes.GameSceneListener;
 import controllers.gamescenes.MenuGameScene;
+import controllers.gamescenes.PlayGameScene;
 import models.GameSetting;
+
+import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -141,6 +144,7 @@ public class GameWindow extends Frame implements Runnable, GameSceneListener{
             currentGameScene = stack.pop();
             currentGameScene.setGameSceneListener(this);
             this.addKeyListener(currentGameScene.getKeyListener());
+            this.addMouseListener(currentGameScene.getMouseListener());
         } else {
             //System.exit(0);
         }

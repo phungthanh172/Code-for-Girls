@@ -3,6 +3,7 @@ package controllers;
 import controllers.gamescenes.*;
 import models.GameObject;
 import models.GameObjectWithHp;
+import models.GameSetting;
 import models.Player;
 import utils.Utils;
 import views.AnimationDrawer;
@@ -19,7 +20,7 @@ public class PlayerController extends SingleController
         implements KeyListener, Colliable {
     //private static final String TAG = PlayerController.class.toString();
     private GameInput gameInput;
-    private static final int JUMP_SIZE = 70 ;
+    private static final int JUMP_SIZE = 70;
     private static final int FLOOR_CHANGE = 15;
     private static final float GRAFITY = 0.1f;
     private float floor = 400;
@@ -48,19 +49,20 @@ public class PlayerController extends SingleController
     public GameSceneListener getGameSceneListener() {
         return gameSceneListener;
     }
+
     public void setGameSceneListener(GameSceneListener gameSceneListener) {
         this.gameSceneListener = gameSceneListener;
     }
 
     private PlayerController(Player player, GameDrawer gameDrawer) {
         super(player, gameDrawer);
-    //    this.bulletManager = new ControllerManager();
+        //    this.bulletManager = new ControllerManager();
         this.gameInput = new GameInput();
         CollsionPool.instance.add(this);
         playerStatus = PlayerStatus.STANDING;
         imagePlayerStatus = ImagePlayerStatus.RUN;
         floor = 400;
-    //    System.out.println("Player Contructor Public" );
+        //    System.out.println("Player Contructor Public" );
 
     }
 
@@ -77,11 +79,11 @@ public class PlayerController extends SingleController
                 break;
             case KeyEvent.VK_DOWN:
                 this.gameInput.keyDown = true;
-                if(imagePlayerStatus == ImagePlayerStatus.RUN) {
+                if (imagePlayerStatus == ImagePlayerStatus.RUN) {
                     gameDrawer = new AnimationDrawer(
                             Utils.loadFromSprite("resources/down_final.png", true, 120, 120, 1), false, true
                             , 14);
-                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.SLIDE, ((GameObjectWithHp) (gameObject)).getHp(), ((Player) (gameObject)).getScore(), ((Player)(gameObject)).getCoin());
+                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.SLIDE, ((GameObjectWithHp) (gameObject)).getHp(), ((Player) (gameObject)).getScore(), ((Player) (gameObject)).getCoin());
                     imagePlayerStatus = ImagePlayerStatus.SLIDE;
                 }
 
@@ -114,11 +116,11 @@ public class PlayerController extends SingleController
             case KeyEvent.VK_DOWN:
                 this.gameInput.keyDown = false;
 
-                if(imagePlayerStatus == ImagePlayerStatus.SLIDE) {
+                if (imagePlayerStatus == ImagePlayerStatus.SLIDE) {
                     gameDrawer = new AnimationDrawer(
                             Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
                     );
-                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.RUN, ((GameObjectWithHp) (gameObject)).getHp(), ((Player)(gameObject)).getScore(), ((Player)(gameObject)).getCoin());
+                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.RUN, ((GameObjectWithHp) (gameObject)).getHp(), ((Player) (gameObject)).getScore(), ((Player) (gameObject)).getCoin());
                     imagePlayerStatus = ImagePlayerStatus.RUN;
                 }
 
@@ -143,13 +145,15 @@ public class PlayerController extends SingleController
 
         // End
     }
+
     private void setDefaultGrafitySpeed() {
         fallingSpeed = 3f;
         jumpingSpeed = 4.5f;
     }
-    void showmess(){
-        for (int i = 0; i <20; i ++){
-            if(i==19){
+
+    void showmess() {
+        for (int i = 0; i < 20; i++) {
+            if (i == 19) {
                 gameSceneListener.changeGameScene(new GameOverGameScene(), false);
             }
         }
@@ -159,6 +163,7 @@ public class PlayerController extends SingleController
 //            gameSceneListener.changeGameScene(new GameOverGameScene(), false);
 //        }
     }
+
     @Override
     public void run() {
 
@@ -166,8 +171,11 @@ public class PlayerController extends SingleController
         //  Call function int getFloorValue(GameObject) Creat function in FloorController.instance
         // Enter code here
         // Tìm khi nào đưa gia trị Của Player Controller / Other Object xem vị trí nền của nó ở đâu trả về floor.getY()
-        floor = FloorControllerManager.instance.getFloorValue(this.gameObject);
-
+        //if (GameSetting.sceneState == SceneState.PLAY) {
+            floor = FloorControllerManager.instance.getFloorValue(this.gameObject);
+//        } else if (GameSetting.sceneState == SceneState.COIN) {
+//            floor = FloorControllerManager2.instance.getFloorValue(this.gameObject);
+//        }
         //End
         // Check floor
 
@@ -181,12 +189,12 @@ public class PlayerController extends SingleController
             increaseScore();
         }
         //System.out.println(imagePlayerStatus);
-        if(imagePlayerStatus == ImagePlayerStatus.DEAD){
+        if (imagePlayerStatus == ImagePlayerStatus.DEAD) {
             countDie++;
             System.out.println(countDie);
             if (countDie >= 40) {
-            gameSceneListener.changeGameScene(new GameOverGameScene(), false);
-        }
+                gameSceneListener.changeGameScene(new GameOverGameScene(), false);
+            }
 
         }
         if (!gameObject.isAlive()) {
@@ -196,7 +204,7 @@ public class PlayerController extends SingleController
             return;
         }
 
-        if(gameObject.isAlive() && gameInput.keyDown){
+        if (gameObject.isAlive() && gameInput.keyDown) {
 
         }
 
@@ -206,24 +214,26 @@ public class PlayerController extends SingleController
 //            System.out.println("Height : " + this.getGameObject().getHeight());
 //            System.out.println("floor : " + floor);
 //            System.out.println("maxHighJump : " + maxHighJump);
-            if(playerStatus == PlayerStatus.STANDING) {
+            if (playerStatus == PlayerStatus.STANDING) {
                 maxHighJump = floor - this.getGameObject().getHeight() + FLOOR_CHANGE - JUMP_SIZE;
                 playerStatus = PlayerStatus.JUMPING;
                 setDefaultGrafitySpeed();
-                Utils.playSound("resources/jump.wav", false);
+                if (OptionGameScene.turnOnSound) {
+                    Utils.playSound("resources/jump.wav", false);
+                }
                 // System.out.println("JUMP");
             }
         }
-       // System.out.println("Floor  : " + floor);
+        // System.out.println("Floor  : " + floor);
         // STATUS DOING
         switch (playerStatus) {
             case JUMPING:
-                jumpingSpeed -= GRAFITY/3;
-            this.gameVector.dy = (int)(-jumpingSpeed);
+                jumpingSpeed -= GRAFITY / 3;
+                this.gameVector.dy = (int) (-jumpingSpeed);
                 break;
             case FALLING:
                 fallingSpeed += GRAFITY;
-                this.gameVector.dy = (int)(fallingSpeed);
+                this.gameVector.dy = (int) (fallingSpeed);
                 break;
             case STANDING:
 
@@ -241,7 +251,7 @@ public class PlayerController extends SingleController
             playerStatus = PlayerStatus.FALLING;
             //speedX = 0.5f;
         }
-        if(playerStatus != PlayerStatus.JUMPING && this.getGameObject().getY() < floorForPlayer){
+        if (playerStatus != PlayerStatus.JUMPING && this.getGameObject().getY() < floorForPlayer) {
             playerStatus = PlayerStatus.FALLING;
         }
         // Start standing
@@ -252,7 +262,7 @@ public class PlayerController extends SingleController
             setDefaultGrafitySpeed();
         }
 
-        if(checkFallDeep()){
+        if (checkFallDeep()) {
             gameSceneListener.changeGameScene(new GameOverGameScene(), false);
             gameObject.destroy();
         }
@@ -260,13 +270,14 @@ public class PlayerController extends SingleController
         super.run();
 
     }
-    public boolean checkFallDeep(){
-    if(getGameObject().getY() > 430) return true;
+
+    public boolean checkFallDeep() {
+        if (getGameObject().getY() > 480 ) return true;
         return false;
     }
 
-    public static PlayerController instance = new PlayerController(
-            new Player(150,350,0),
+    public static final PlayerController instance = new PlayerController(
+            new Player(150, 350, 0),
             new AnimationDrawer(
                     Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
             )
@@ -280,34 +291,42 @@ public class PlayerController extends SingleController
 //                this.gameVector.dx = -1;
 //            }
 //        }
-        if(colliable instanceof HoleController){
-            gameSceneListener.changeGameScene(new PlayGameScene3(false),false);
+        if (colliable instanceof HoleController) {
+            GameSetting.sceneState = SceneState.COIN;
+            gameSceneListener.changeGameScene(new PlayGameScene3(false), false);
         }
     }
 
     public void decreaseHP(int amount) {
-        ((GameObjectWithHp)gameObject).decreaseHP(amount);
+        ((GameObjectWithHp) gameObject).decreaseHP(amount);
     }
-    public void increaseHP(int amount){
-        ((GameObjectWithHp)gameObject).increaseHP(amount);
+
+    public void increaseHP(int amount) {
+        ((GameObjectWithHp) gameObject).increaseHP(amount);
     }
+
     public void increaseScore() {
         ((Player) gameObject).increaseScore();
     }
-    public static void reset(){
-        instance = new PlayerController(
-                new Player(150,350,0),
-                new AnimationDrawer(Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)));
+
+    public void reset() {
+        gameObject = new Player(150, 350, 0);
+        gameDrawer = new AnimationDrawer(
+                Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
+        );
+        imagePlayerStatus = ImagePlayerStatus.RUN;
     }
+
     private void die() {
         AnimationDrawer animationDrawer = new AnimationDrawer(
                 Utils.loadFromSprite("resources/dead_final.png", true, 160, 160, 1), false, true, 14
         );
-        gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, 0, ((Player)(gameObject)).getScore(), ((Player)(gameObject)).getCoin());
+        gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, 0, ((Player) (gameObject)).getScore(), ((Player) (gameObject)).getCoin());
         gameDrawer = animationDrawer;
         imagePlayerStatus = ImagePlayerStatus.DEAD;
     }
-    public void increaseCoin(int amount){
-        ((Player)gameObject).increaseCoin(amount);
+
+    public void increaseCoin(int amount) {
+        ((Player) gameObject).increaseCoin(amount);
     }
 }

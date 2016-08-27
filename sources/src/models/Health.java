@@ -5,8 +5,8 @@ package models;
  */
 public class Health extends GameObject {
 
-    private static final int DEFAULT_WIDTH = 20 ;
-    private static final int DEFAULT_HEIGHT = 20;
+    private static final int DEFAULT_WIDTH = 30 ;
+    private static final int DEFAULT_HEIGHT = 30;
 
     public Health(float x, float y, int width, int height) {
         super(x, y, width, height);

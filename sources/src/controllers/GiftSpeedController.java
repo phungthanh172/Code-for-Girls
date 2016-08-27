@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.gamescenes.*;
 import models.GameObject;
 import models.*;
 import utils.Utils;
@@ -24,8 +25,12 @@ public class GiftSpeedController extends SingleController implements Colliable {
             BoxControllerManager.instance.increaseSpeed();
             GiftControllerManager.instance.increaseSpeed();
             HealthControllerManager.instance.increaseSpeed();
+            HoleControllerManager.instance.increaseSpeed();
             SingleController.speedChange = true;
-            Utils.playSound("resources/coliable1.wav", false);
+            if (OptionGameScene.turnOnSound) {
+                Utils.playSound("resources/coliable1.wav", false);
+            }
+           // Utils.playSound("resources/coliable1.wav", false);
         }
     }
 

@@ -11,16 +11,16 @@ public class HoleControllerManager extends ControllerManager {
     int count;
     @Override
     public void run() {
-        count++;
         super.run();
-        if (count >= 100){
-            count = 0;
+        if (count % 500 == 0){
+//            count = 0;
             HoleController holeController = new HoleController(
                     new Hole(720, 400),
                     new ImageDrawer("hole1")
             );
             this.add(holeController);
         }
+        count++;
     }
 
     public void reset(){

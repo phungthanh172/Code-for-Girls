@@ -125,7 +125,7 @@ public class MenuGameScene implements GameScene, KeyListener, MouseListener {
         if (mx >= GameSetting.getInstance().getScreenWidth() / 4 + 70 && mx <= GameSetting.getInstance().getScreenWidth() / 4 + 70 + WIDTH_BUTTON) {
             if (my >= 300 && my <= 300 + HEIGHT_BUTTON) {
                 if (gameSceneListener != null)
-                    gameSceneListener.changeGameScene(new PlayGameScene(), true);
+                    gameSceneListener.changeGameScene(new OptionGameScene(), true);
                 else {
                     System.out.println(String.format(
                             "%s : gameSceneListener is not set",

@@ -30,7 +30,7 @@ public class PlayGameScene3 implements GameScene,MouseListener {
             reset();} else {
             resetWithOutPlayer();
 
-        }       // Utils.playSound("resources/music.wav", true);
+        }        //Utils.playSound("resources/music.wav", true);
     }
 
     protected void resetWithOutPlayer() {
@@ -46,26 +46,24 @@ public class PlayGameScene3 implements GameScene,MouseListener {
 
     public void paint(Graphics graphics) {
 
-        back = new BufferedImage(GameSetting.getInstance().getScreenWidth(),
-                GameSetting.getInstance().getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
-        Graphics buffer = back.getGraphics();
+        background = Utils.loadImage("Background3");
+//        back = new BufferedImage(GameSetting.getInstance().getScreenWidth(),
+//                GameSetting.getInstance().getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
+//        Graphics buffer = back.getGraphics();
+        graphics.drawImage(background, backOne.getX(), backOne.getY(), null);
+        graphics.drawImage(background, backTwo.getX(), backTwo.getY(), null);
+        //graphics.drawImage(background, 0, 0, null);
 
-        buffer.drawImage(background, backOne.getX(), backOne.getY(), null);
-        buffer.drawImage(background, backTwo.getX(), backTwo.getY(), null);
-        healthBarDraw(buffer);
-        scoreDraw(buffer);
-        FloorControllerManager.instance.draw(buffer);
-//        BoxControllerManager.instance.draw(buffer);
-        PlayerController.instance.draw(buffer);
-//        HealthControllerManager.instance.draw(buffer);
-//        GiftControllerManager.instance.draw(buffer);
-        HoleControllerManager.instance.draw(buffer);
-        graphics.drawImage(back, 0, 0, null);
+        healthBarDraw(graphics);
+        scoreDraw(graphics);
+        CoinControllerManager.instance.draw(graphics);
+        FloorControllerManager2.instance.draw(graphics);
+        PlayerController.instance.draw(graphics);
     }
     protected void reset(){
         backOne = new Background(0, 0);
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
-        PlayerController.instance.reset();
+        //PlayerController.instance.reset();
         background = Utils.loadImage("Background2");
         System.out.println("dddddddddddddddddddd");
         FloorControllerManager2.instance.reset();
@@ -75,7 +73,7 @@ public class PlayGameScene3 implements GameScene,MouseListener {
     protected void scoreDraw(Graphics g) {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);
         g.setFont(font);
-        g.setColor(Color.red);
+        g.setColor(Color.RED);
         g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
         g.drawString("Coin: " + ((Player)PlayerController.instance.getGameObject()).getCoin(), 450, 65);
     }
@@ -97,6 +95,8 @@ public class PlayGameScene3 implements GameScene,MouseListener {
         count++;
         if (GameSetting.getInstance().toSeconds(count) >= 5000) {
             count = 0;
+            GameSetting.sceneState = SceneState.PLAY;
+
             gameSceneListener.changeGameScene(new PlayGameScene(false), false);
         }
 

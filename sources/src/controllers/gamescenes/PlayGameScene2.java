@@ -34,6 +34,7 @@ public class PlayGameScene2 extends PlayGameScene {
         FloorControllerManager2.instance.reset();
         CoinControllerManager.instance.reset();
         CollsionPool.instance.reset();
+        SingleController.speedChange = false;
     }
 
     @Override
@@ -45,6 +46,7 @@ public class PlayGameScene2 extends PlayGameScene {
         FloorControllerManager2.instance.reset();
         CoinControllerManager.instance.reset();
         CollsionPool.instance.reset();
+        SingleController.speedChange = false;
     }
 
     @Override
