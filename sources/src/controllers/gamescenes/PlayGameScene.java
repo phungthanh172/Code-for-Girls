@@ -16,11 +16,12 @@ import java.awt.image.BufferedImage;
  * Created by Hau on 22/08/2016.
  */
 public class PlayGameScene implements GameScene,MouseListener {
-    private Background backOne;
-    private Background backTwo;
-    private BufferedImage back;
-    private Image background;
-    GameSceneListener gameSceneListener;
+    protected Background backOne;
+    protected Background backTwo;
+    protected BufferedImage back;
+    protected Image background;
+    protected GameSceneListener gameSceneListener;
+    private int count;
 
 
     public PlayGameScene() {
@@ -41,10 +42,11 @@ public class PlayGameScene implements GameScene,MouseListener {
         healthBarDraw(buffer);
         scoreDraw(buffer);
         FloorControllerManager.instance.draw(buffer);
-        BoxControllerManager.instance.draw(buffer);
+//        BoxControllerManager.instance.draw(buffer);
         PlayerController.instance.draw(buffer);
-        HealthControllerManager.instance.draw(buffer);
-        GiftControllerManager.instance.draw(buffer);
+//        HealthControllerManager.instance.draw(buffer);
+//        GiftControllerManager.instance.draw(buffer);
+        HoleControllerManager.instance.draw(buffer);
         graphics.drawImage(back, 0, 0, null);
     }
     private void reset(){
@@ -56,16 +58,18 @@ public class PlayGameScene implements GameScene,MouseListener {
         FloorControllerManager.instance.reset();
         BoxControllerManager.instance.reset();
         CollsionPool.instance.reset();
+        HoleControllerManager.instance.reset();
         GiftControllerManager.instance.reset();
         CollsionPool.instance.add(PlayerController.instance);
     }
-    private void scoreDraw(Graphics g) {
+    protected void scoreDraw(Graphics g) {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);
         g.setFont(font);
         g.setColor(Color.BLACK);
         g.drawString("Score: " + ((Player)PlayerController.instance.getGameObject()).getScore(), 600, 65);
+        g.drawString("Coin: " + ((Player)PlayerController.instance.getGameObject()).getCoin(), 450, 65);
     }
-    private void healthBarDraw(Graphics g) {
+    protected void healthBarDraw(Graphics g) {
         GameObject gameObject = PlayerController.instance.getGameObject();
         float health = ((GameObjectWithHp) gameObject).getHp();
         float maxHealth = 50;
@@ -83,11 +87,12 @@ public class PlayGameScene implements GameScene,MouseListener {
         backOne.update();
         backTwo.update();
         PlayerController.instance.run();
-        BoxControllerManager.instance.run();
+//        BoxControllerManager.instance.run();
         FloorControllerManager.instance.run();
         CollsionPool.instance.run();
-        GiftControllerManager.instance.run();
-        HealthControllerManager.instance.run();
+//        GiftControllerManager.instance.run();
+//        HealthControllerManager.instance.run();
+        HoleControllerManager.instance.run();
     }
 
     @Override

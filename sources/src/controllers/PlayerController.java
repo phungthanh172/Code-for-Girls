@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.gamescenes.GameOverGameScene;
 import controllers.gamescenes.GameSceneListener;
+import controllers.gamescenes.PlayGameScene2;
 import models.GameObject;
 import models.GameObjectWithHp;
 import models.Player;
@@ -78,7 +79,7 @@ public class PlayerController extends SingleController
                     gameDrawer = new AnimationDrawer(
                             Utils.loadFromSprite("resources/down_final.png", true, 120, 120, 1), false, true
                             , 14);
-                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.SLIDE, ((GameObjectWithHp) (gameObject)).getHp(), ((Player) (gameObject)).getScore());
+                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.SLIDE, ((GameObjectWithHp) (gameObject)).getHp(), ((Player) (gameObject)).getScore(), ((Player)(gameObject)).getCoin());
                     imagePlayerStatus = ImagePlayerStatus.SLIDE;
                 }
 
@@ -115,7 +116,7 @@ public class PlayerController extends SingleController
                     gameDrawer = new AnimationDrawer(
                             Utils.loadFromSprite("resources/spritePlayerFinal.png", true, 90, 160, 1)
                     );
-                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.RUN, ((GameObjectWithHp) (gameObject)).getHp(), ((Player)(gameObject)).getScore());
+                    gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.RUN, ((GameObjectWithHp) (gameObject)).getHp(), ((Player)(gameObject)).getScore(), ((Player)(gameObject)).getCoin());
                     imagePlayerStatus = ImagePlayerStatus.RUN;
                 }
 
@@ -277,6 +278,9 @@ public class PlayerController extends SingleController
 //                this.gameVector.dx = -1;
 //            }
 //        }
+        if(colliable instanceof HoleController){
+            gameSceneListener.changeGameScene(new PlayGameScene2(),false);
+        }
     }
 
     public void decreaseHP(int amount) {
@@ -297,8 +301,11 @@ public class PlayerController extends SingleController
         AnimationDrawer animationDrawer = new AnimationDrawer(
                 Utils.loadFromSprite("resources/dead_final.png", true, 160, 160, 1), false, true, 14
         );
-        gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, 0, ((Player)(gameObject)).getScore());
+        gameObject = new Player((int) (getGameObject().getX()), (int) (getGameObject().getY()), ImagePlayerStatus.DEAD, 0, ((Player)(gameObject)).getScore(), ((Player)(gameObject)).getCoin());
         gameDrawer = animationDrawer;
         imagePlayerStatus = ImagePlayerStatus.DEAD;
+    }
+    public void increaseCoin(int amount){
+        ((Player)gameObject).increaseCoin(amount);
     }
 }
