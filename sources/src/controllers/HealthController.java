@@ -13,6 +13,8 @@ public class HealthController extends SingleController implements Colliable {
         super(gameObject, gameDrawer);
         CollsionPool.instance.add(this);
         System.out.println(gameVector.dx);
+        speed = -2;
+
     }
 
     @Override

@@ -17,7 +17,7 @@ public class HealthControllerManager extends ControllerManager {
     @Override
     public void run() {
         super.run();
-        if(count % 200 == 150) {
+        if(count % 500 == 150) {
             HealthController healthController = new HealthController(
                     new Health(720, 350), new ImageDrawer("health")
             );

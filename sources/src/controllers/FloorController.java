@@ -11,6 +11,8 @@ import views.ImageDrawer;
 public class FloorController extends SingleController implements Colliable{
     public FloorController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
+        speed = -2;
+
         CollsionPool.instance.add(this);
     }
 

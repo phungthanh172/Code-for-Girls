@@ -25,7 +25,7 @@ public class MenuGameScene implements GameScene, KeyListener, MouseListener {
     private final int HEIGHT_BUTTON = 50;
 
     public MenuGameScene() {
-        background = Utils.loadImage("Background");
+        background = Utils.loadImage("MENU");
         playButton = new Rectangle(GameSetting.getInstance().getScreenWidth() / 4 + 70, 200, WIDTH_BUTTON, HEIGHT_BUTTON);
         optionButton = new Rectangle(GameSetting.getInstance().getScreenWidth() / 4 + 70, 300, WIDTH_BUTTON, HEIGHT_BUTTON);
         quitButton = new Rectangle(GameSetting.getInstance().getScreenWidth() / 4 + 70, 400, WIDTH_BUTTON, HEIGHT_BUTTON);
@@ -39,15 +39,15 @@ public class MenuGameScene implements GameScene, KeyListener, MouseListener {
         Font font = new Font("arial", Font.BOLD, 50);
         g.setFont(font);
         g.setColor(Color.BLACK);
-        g.drawString("SPACE GAME", GameSetting.getInstance().getScreenWidth() / 4, 150);
+//        g.drawString("SPACE GAME", GameSetting.getInstance().getScreenWidth() / 4, 150);
         Font font1 = new Font("arial", Font.BOLD, 30);
         g.setFont(font1);
-        g.drawString("Play", playButton.x + 67, playButton.y + 35);
-        g.drawString("Option", optionButton.x + 54, optionButton.y + 35);
-        g.drawString("Quit", quitButton.x + 67, quitButton.y + 35);
-        g2d.draw(playButton);
-        g2d.draw(optionButton);
-        g2d.draw(quitButton);
+//        g.drawString("Play", playButton.x + 67, playButton.y + 35);
+//        g.drawString("Option", optionButton.x + 54, optionButton.y + 35);
+//        g.drawString("Quit", quitButton.x + 67, quitButton.y + 35);
+//        g2d.draw(playButton);
+//        g2d.draw(optionButton);
+//        g2d.draw(quitButton);
 
 
     }

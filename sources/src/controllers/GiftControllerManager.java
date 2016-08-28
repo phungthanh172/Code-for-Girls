@@ -13,10 +13,10 @@ public class GiftControllerManager extends ControllerManager {
     public void run() {
         super.run();
         count++;
-        if (count >= 500){
+        if (count >= 700){
             count = 0;
             Random r = new Random();
-            int y = r.nextInt(50) + 350;
+            int y = r.nextInt(50) + 320;
             System.out.println(y);
             GiftSpeedController giftSpeedController = GiftSpeedController.create(720, y);
             this.add(giftSpeedController);

@@ -22,16 +22,32 @@ public class EnemyControllerManager extends ControllerManager {
     @Override
     public void run() {
         super.run();
-        if(size() < 2) {
-            EnemyController enemyController = new EnemyController(
-                    new Enemy(600, 0), new AnimationDrawer( Utils.loadFromSprite("resources/Enemy.png", true, 90, 200, 0))
-            );
-            this.add(enemyController);
-        }
+        if(singleControllerVector.size() == 0){
+            count ++;
+            if(count >= 1000) {
+                count = 0;
+                EnemyController enemyController = new EnemyController(
+                        new Enemy(600, 0), new AnimationDrawer( Utils.loadFromSprite("resources/Enemy.png", true, 90, 200, 0),
+                        false, false, 14
+                )
 
-        count++;
+                );
+                this.add(enemyController);
+            }
+
+        }
+//        if(count == 1) {
+//            EnemyController enemyController = new EnemyController(
+//                    new Enemy(600, 0), new AnimationDrawer( Utils.loadFromSprite("resources/Enemy.png", true, 90, 200, 0),
+//                    false, false, 14
+//            )
+//
+//            );
+//            this.add(enemyController);
+//        }
     }
     public void reset(){
         singleControllerVector.setSize(0);
+        count = 0;
     }
 }

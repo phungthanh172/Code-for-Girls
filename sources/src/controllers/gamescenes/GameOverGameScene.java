@@ -19,21 +19,24 @@ public class GameOverGameScene implements GameScene, KeyListener, MouseListener 
     private GameSceneListener gameSceneListener;
 
     public GameOverGameScene() {
-        backgroundImage = Utils.loadImage("gameover");
+        backgroundImage = Utils.loadImage("ScoreLayout");
     }
 
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImage, 0, 0, GameSetting.getInstance().getScreenWidth(),
-               GameSetting.getInstance().getScreenHeight(), null);
+                GameSetting.getInstance().getScreenHeight(), null);
 
         int x = GameSetting.getInstance().getScreenWidth() / 4 + 120;
-        int y = GameSetting.getInstance().getScreenHeight() / 2;
-        Font font = new Font("arial", Font.TYPE1_FONT, 50);
+        int y = GameSetting.getInstance().getScreenHeight() / 2 + 70;
+        Font font = new Font("arial", Font.TYPE1_FONT, 28);
         g.setFont(font);
-        g.setColor(Color.BLACK);
-        g.drawString("Score" , x , y - 70);
-        g.drawString("" +( ((Player) PlayerController.instance.getGameObject()).getScore()+((Player) PlayerController.instance.getGameObject()).getCoin()*10 ), x + 35, y);
+        g.setColor(Color.blue);
+//        g.drawString("Score" , x , y -70);
+        g.drawString("Coin :  " + (((Player) PlayerController.instance.getGameObject()).getCoin()) +" x 1", x - 20, y - 70);
+        g.drawString("Score :   " + (((Player) PlayerController.instance.getGameObject()).getScore()), x - 20, y);
+        g.drawString(("___________"), x - 20, y + 40);
+        g.drawString("Total :   "  + (((Player) PlayerController.instance.getGameObject()).getScore() + ((Player) PlayerController.instance.getGameObject()).getCoin() * 1), x - 20, y + 100);
     }
 
     @Override

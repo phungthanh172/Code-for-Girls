@@ -13,6 +13,7 @@ public class HoleController extends SingleController implements Colliable{
     public HoleController(Hole gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollsionPool.instance.add(this);
+        speed = -2;
     }
 
     @Override

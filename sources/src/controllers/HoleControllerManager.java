@@ -1,5 +1,6 @@
 package controllers;
 
+import models.GameSetting;
 import models.Hole;
 import views.ImageDrawer;
 
@@ -12,10 +13,10 @@ public class HoleControllerManager extends ControllerManager {
     @Override
     public void run() {
         super.run();
-        if (count % 500 == 0){
-//            count = 0;
+        if (GameSetting.getInstance().toSeconds(count) >= 100000){
+            count = 0;
             HoleController holeController = new HoleController(
-                    new Hole(720, 400),
+                    new Hole(720, 350),
                     new ImageDrawer("hole1")
             );
             this.add(holeController);

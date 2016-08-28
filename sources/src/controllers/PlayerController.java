@@ -1,10 +1,8 @@
 package controllers;
 
+import controllers.Enemy.EnemyBulletController;
 import controllers.gamescenes.*;
-import models.GameObject;
-import models.GameObjectWithHp;
-import models.GameSetting;
-import models.Player;
+import models.*;
 import utils.Utils;
 import views.AnimationDrawer;
 import views.GameDrawer;
@@ -172,7 +170,7 @@ public class PlayerController extends SingleController
         // Enter code here
         // Tìm khi nào đưa gia trị Của Player Controller / Other Object xem vị trí nền của nó ở đâu trả về floor.getY()
         //if (GameSetting.sceneState == SceneState.PLAY) {
-            floor = FloorControllerManager.instance.getFloorValue(this.gameObject);
+        floor = FloorControllerManager.instance.getFloorValue(this.gameObject);
 //        } else if (GameSetting.sceneState == SceneState.COIN) {
 //            floor = FloorControllerManager2.instance.getFloorValue(this.gameObject);
 //        }
@@ -272,7 +270,7 @@ public class PlayerController extends SingleController
     }
 
     public boolean checkFallDeep() {
-        if (getGameObject().getY() > 480 ) return true;
+        if (getGameObject().getY() > 480) return true;
         return false;
     }
 
@@ -294,6 +292,21 @@ public class PlayerController extends SingleController
         if (colliable instanceof HoleController) {
             GameSetting.sceneState = SceneState.COIN;
             gameSceneListener.changeGameScene(new PlayGameScene3(false), false);
+        } else if (colliable instanceof EnemyBulletController) {
+                colliable.getGameObject().destroy();
+            if(gameInput.keySpace){
+                PlayerBulletController playerBulletController =
+                        new PlayerBulletController(
+                                new EnemyBullet( (int)(this.gameObject.getMiddleX() - EnemyBullet.SIZE / 2), (int) (this.gameObject.getBottom())),
+                                new AnimationDrawer( Utils.loadFromSprite("resources/bulletP.png", true, 300, 275, 0))
+                        );
+                playerBulletController.gameVector.dx = -((EnemyBulletController) colliable).getGameVector().dx;
+                playerBulletController.gameVector.dy = -((EnemyBulletController) colliable).getGameVector().dy * 2;
+
+                BulletControllerManager.instance.add(playerBulletController);
+            } else {
+                ((Player) (getGameObject())).decreaseHP(5);
+            }
         }
     }
 

@@ -34,13 +34,14 @@ public class PlayGameScene3 implements GameScene,MouseListener {
     }
 
     protected void resetWithOutPlayer() {
+        CollsionPool.instance.reset();
+        CoinControllerManager.instance.reset();
         backOne = new Background(0, 0);
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
         background = Utils.loadImage("Background2");
         System.out.println("dddddddddddddddddddd");
         FloorControllerManager2.instance.reset();
-        CoinControllerManager.instance.reset();
-        CollsionPool.instance.reset();
+        CollsionPool.instance.add(PlayerController.instance);
     }
 
 
@@ -59,8 +60,11 @@ public class PlayGameScene3 implements GameScene,MouseListener {
         CoinControllerManager.instance.draw(graphics);
         FloorControllerManager2.instance.draw(graphics);
         PlayerController.instance.draw(graphics);
+        CollsionPool.instance.add(PlayerController.instance);
+
     }
     protected void reset(){
+        CollsionPool.instance.reset();
         backOne = new Background(0, 0);
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
         //PlayerController.instance.reset();
@@ -68,7 +72,6 @@ public class PlayGameScene3 implements GameScene,MouseListener {
         System.out.println("dddddddddddddddddddd");
         FloorControllerManager2.instance.reset();
         CoinControllerManager.instance.reset();
-        CollsionPool.instance.reset();
     }
     protected void scoreDraw(Graphics g) {
         Font font = new Font("arial", Font.TYPE1_FONT, 20);

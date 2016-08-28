@@ -9,17 +9,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
+ * Created by Ha San~ on 8/28/2016.
+ */
+
+/**
  * Created by Ha San~ on 8/27/2016.
  */
-public class TutorialGameScene implements GameScene, KeyListener, MouseListener {
+public class TutorialtemScene implements GameScene, KeyListener, MouseListener {
     private static final String TAG = TutorialGameScene.class.toString();
     private GameSceneListener gameSceneListener;
     private Image background;
 
-    public TutorialGameScene(){
-        background = Utils.loadImage("Huong dan");
+    public TutorialtemScene() {
+        background = Utils.loadImage("Huong dan2");
 
     }
+
     @Override
     public KeyListener getKeyListener() {
         return this;
@@ -33,7 +38,7 @@ public class TutorialGameScene implements GameScene, KeyListener, MouseListener 
 
     @Override
     public void setGameSceneListener(GameSceneListener gameSceneListener) {
-            this.gameSceneListener = gameSceneListener;
+        this.gameSceneListener = gameSceneListener;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class TutorialGameScene implements GameScene, KeyListener, MouseListener 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (gameSceneListener != null)
-                gameSceneListener.changeGameScene(new TutorialtemScene(), false);
+                gameSceneListener.changeGameScene(new PlayGameScene(), false);
             else {
                 System.out.println(String.format(
                         "%s : gameSceneListener is not set",
@@ -95,3 +100,5 @@ public class TutorialGameScene implements GameScene, KeyListener, MouseListener 
 
     }
 }
+
+

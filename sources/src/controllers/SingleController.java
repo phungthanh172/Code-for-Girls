@@ -15,15 +15,16 @@ public class SingleController implements BaseController {
     protected GameObject gameObject;
     protected GameDrawer gameDrawer;
     protected GameVector gameVector;
+    public  float speed = -2;
 
     public SingleController(GameObject gameObject, GameDrawer gameDrawer) {
         this.gameObject = gameObject;
         this.gameDrawer = gameDrawer;
         this.gameVector = new GameVector();
         if (speedChange) {
-            gameVector.dx = -4;
+            gameVector.dx = speed * 2;
         } else {
-            gameVector.dx = -2;
+            gameVector.dx = speed;
         }
     }
 
@@ -47,10 +48,13 @@ public class SingleController implements BaseController {
     }
 
     public void increaseSpeed() {
-        gameVector.increaseSpeed();
+        gameVector.dx = speed * 2;
+//        gameVector.increaseSpeed();
     }
 
     public void decreaseSpeed() {
-        gameVector.decreaseSpeed();
+        gameVector.dx = speed;
+//        gameVector.decreaseSpeed();
+
     }
 }

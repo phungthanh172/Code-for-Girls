@@ -1,21 +1,19 @@
 package controllers.Enemy;
 
-import controllers.Colliable;
-import controllers.CollsionPool;
-import controllers.PlayerController;
-import controllers.SingleController;
+import controllers.*;
 import models.Enemy;
 import models.EnemyBullet;
 import models.GameSetting;
+import utils.Utils;
+import views.AnimationDrawer;
 import views.GameDrawer;
-import views.ImageDrawer;
 
 /**
  * Created by Ha San~ on 8/24/2016.
  */
 public class EnemyController extends SingleController implements Colliable {
     private int count;
-    private static final int SHOT_SPEED = 3000;
+    private static final int SHOT_SPEED = 5000;
     private static final int BULLET_SPEED = 5;
 
     public EnemyController(Enemy gameObject, GameDrawer gameDrawer) {
@@ -35,7 +33,7 @@ public class EnemyController extends SingleController implements Colliable {
             EnemyBulletController enemyBulletController =
                     new EnemyBulletController(
                             new EnemyBullet( (int)(this.gameObject.getMiddleX() - EnemyBullet.SIZE / 2), (int) (this.gameObject.getBottom())),
-                            new ImageDrawer("bullet")
+                            new AnimationDrawer( Utils.loadFromSprite("resources/bulletS.png", true, 300, 275, 0))
                     );
             float dx = PlayerController.instance.getGameObject().getX() - PlayerController.instance.getGameObject().getHeight() - gameObject.getX() + gameObject.getHeight();
             float dy = PlayerController.instance.getGameObject().getY() - gameObject.getBottom();
@@ -48,16 +46,17 @@ public class EnemyController extends SingleController implements Colliable {
                 enemyBulletController.getGameVector().dy = (int)(dy / ratio);
                 enemyBulletController.getGameVector().dx = (int)(dx / ratio);
 
-                EnemyBulletControllerManager.instance.add(enemyBulletController);
+                BulletControllerManager.instance.add(enemyBulletController);
             }
 
         }
 
     }
 
+
     @Override
     public void onCollide(Colliable colliable) {
-//        if(colliable instanceof BulletController){
+//        if(colliable instanceof BulletControllerManager){
 //            this.getGameObject().destroy();
 //        }
     }

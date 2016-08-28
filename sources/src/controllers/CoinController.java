@@ -15,6 +15,8 @@ public class CoinController extends SingleController implements Colliable {
     public CoinController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollsionPool.instance.add(this);
+        speed = -2;
+
     }
 
     @Override

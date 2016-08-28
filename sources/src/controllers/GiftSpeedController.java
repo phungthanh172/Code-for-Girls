@@ -15,6 +15,8 @@ public class GiftSpeedController extends SingleController implements Colliable {
     public GiftSpeedController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollsionPool.instance.add(this);
+        speed = -2;
+
     }
 
     @Override

@@ -18,6 +18,7 @@ public class FloorControllerManager extends ControllerManager {
     private FloorControllerManager() {
         super();
         int x = 0;
+
         //changeSize = 380;
       //  for (int i = 0; i < 1; i++) {
             FloorController floorManager = new FloorController(
@@ -26,6 +27,7 @@ public class FloorControllerManager extends ControllerManager {
        //    x += 700;
             this.add(floorManager);
        // }
+
     }
 
     @Override
@@ -116,6 +118,11 @@ public class FloorControllerManager extends ControllerManager {
 
     }
     public void reset(){
-        instance = new FloorControllerManager();
+        singleControllerVector.setSize(0);
+        FloorController floorManager = new FloorController(
+                new Floor(0, 400), new ImageDrawer("land2")
+        );
+        //    x += 700;
+        this.add(floorManager);
     }
 }

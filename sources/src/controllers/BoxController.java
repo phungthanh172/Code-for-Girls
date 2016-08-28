@@ -15,6 +15,8 @@ public class BoxController extends SingleController implements Colliable {
     public BoxController(GameObject gameObject, GameDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         CollsionPool.instance.add(this);
+        speed = -2;
+
     }
 
     @Override

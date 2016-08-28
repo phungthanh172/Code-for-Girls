@@ -3,11 +3,11 @@ package controllers.gamescenes;
 import controllers.BoxControllerManager;
 import controllers.CollsionPool;
 import controllers.*;
-import controllers.Enemy.EnemyBulletControllerManager;
+import controllers.BulletControllerManager;
 import controllers.Enemy.EnemyControllerManager;
 import models.*;
 import utils.Utils;
-import controllers.gamescenes.*;
+
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -24,6 +24,7 @@ public class PlayGameScene implements GameScene, MouseListener {
     protected Image background;
     protected GameSceneListener gameSceneListener;
     private int count;
+    private boolean checkSound = true;
 
     public PlayGameScene() {
         reset();
@@ -56,9 +57,9 @@ public class PlayGameScene implements GameScene, MouseListener {
         PlayerController.instance.draw(buffer);
         HealthControllerManager.instance.draw(buffer);
         GiftControllerManager.instance.draw(buffer);
-        EnemyBulletControllerManager.instance.draw(buffer);
+        BulletControllerManager.instance.draw(buffer);
 
-//         HoleControllerManager.instance.draw(buffer);
+         HoleControllerManager.instance.draw(buffer);
         graphics.drawImage(back, 0, 0, null);
     }
 
@@ -67,17 +68,17 @@ public class PlayGameScene implements GameScene, MouseListener {
         backOne = new Background(0, 0);
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
         background = Utils.loadImage("Background2");
+        SingleController.speedChange = false;
         PlayerController.instance.reset();
         HealthControllerManager.instance.reset();
         FloorControllerManager.instance.reset();
         BoxControllerManager.instance.reset();
         CollsionPool.instance.reset();
         EnemyControllerManager.instance.reset();
-        EnemyBulletControllerManager.instance.reset();
-//        HoleControllerManager.instance.reset();
+        BulletControllerManager.instance.reset();
+        HoleControllerManager.instance.reset();
         GiftControllerManager.instance.reset();
         CollsionPool.instance.add(PlayerController.instance);
-        SingleController.speedChange = false;
     }
 
     protected void resetWithOutPlayer() {
@@ -85,17 +86,17 @@ public class PlayGameScene implements GameScene, MouseListener {
         backTwo = new Background(GameSetting.getInstance().getScreenWidth(), 0);
         background = Utils.loadImage("Background2");
         //PlayerController.instance.reset();
+        SingleController.speedChange = false;
         HealthControllerManager.instance.reset();
         FloorControllerManager.instance.reset();
         BoxControllerManager.instance.reset();
-        //  EnemyBulletControllerManager.instance.reset();
+          BulletControllerManager.instance.reset();
         CollsionPool.instance.reset();
         EnemyControllerManager.instance.reset();
         EnemyControllerManager.instance.reset();
-        //  HoleControllerManager.instance.reset();
+          HoleControllerManager.instance.reset();
         GiftControllerManager.instance.reset();
         CollsionPool.instance.add(PlayerController.instance);
-        SingleController.speedChange = false;
 
 
     }
@@ -127,7 +128,10 @@ public class PlayGameScene implements GameScene, MouseListener {
         if (count >= 100) {
             count = 0;
             if (OptionGameScene.turnOnSound) {
-                Utils.playSound("resources/music.wav", false);
+                if(checkSound) {
+                    Utils.playSound("resources/music.wav", false);
+                    checkSound = false;
+                }
             }
         }
         backOne.update();
@@ -136,11 +140,11 @@ public class PlayGameScene implements GameScene, MouseListener {
         EnemyControllerManager.instance.run();
         BoxControllerManager.instance.run();
         FloorControllerManager.instance.run();
-        EnemyBulletControllerManager.instance.run();
+        BulletControllerManager.instance.run();
         CollsionPool.instance.run();
         GiftControllerManager.instance.run();
         HealthControllerManager.instance.run();
-//        HoleControllerManager.instance.run();
+        HoleControllerManager.instance.run();
     }
 
     @Override
